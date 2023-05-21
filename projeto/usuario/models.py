@@ -21,6 +21,7 @@ class EnfermeiroAtivoManager(UserManager):
     def get_queryset(self):
         return super().get_queryset().filter(Q(tipo='ENFERMEIRO') | Q(tipo='ADMINISTRADOR'), is_active=True)
     
+
 class TecnicoAtivoManager(UserManager):
     def get_queryset(self):
         return super().get_queryset().filter(tipo='TÉCNICO', is_active=True)
@@ -30,25 +31,43 @@ class MedicoAtivoManager(UserManager):
         return super().get_queryset().filter(tipo='MÉDICO', is_active=True)        
 
 
+class AtletaAtivoManager(UserManager):
+    def get_queryset(self):
+        return super().get_queryset().filter(tipo='ATLETA', is_active=True)        
+
+
 class TecnicoEnfermeiroAtivoManager(UserManager):
    def get_queryset(self):
         return super().get_queryset().filter(Q(tipo='ENFERMEIRO') | Q(tipo='TÉCNICO'), is_active=True)
+
 
 class Usuario(AbstractBaseUser):
     #1 campo da tupla fica no banco de dados
     #2 campo da tupla eh mostrado para o usuario
     TIPOS_USUARIOS = (
         ('ADMINISTRADOR', 'Administrador'),
-        ('ENFERMEIRO', 'Enfermeiro' ),
-        ('MÉDICO', 'Médico' ),
         ('TÉCNICO', 'Técnico' ),
+        ('ATLETA', 'Atleta' ),
+    )    
+    #1 campo da tupla fica no banco de dados
+    #2 campo da tupla eh mostrado para o usuario
+    POSICAO = (
+        ('DIREITA', 'Direita'),
+        ('ESQUERDA', 'Esquerda' ),
+        ('AMBAS', 'Ambas' ),
     )
 
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = 'celular'
 
-    tipo = models.CharField(_('Tipo do usuário *'), max_length=15, choices=TIPOS_USUARIOS, default='TÉCNICO', help_text='* Campos obrigatórios')
-    nome = models.CharField(_('Nome completo *'), max_length=100)
-    email = models.EmailField(_('Email'), unique=True, max_length=100, db_index=True)
+    tipo = models.CharField('Tipo do usuário *', max_length=15, choices=TIPOS_USUARIOS, default='ATLETA', help_text='* Campos obrigatórios')
+    nome = models.CharField('Nome completo *', max_length=100)
+    apelido = models.CharField('Apelido', max_length=50, null = True, blank= True)
+    email = models.EmailField('Email *', max_length=100)
+    celular = models.CharField('Número celular com DDD *', unique=True, max_length=11, db_index=True, help_text="Use DDD, por exemplo 55987619832")
+    
+    posicao = models.CharField('Posição na quadra *', max_length=8, choices=POSICAO)
+    pontuacao = models.IntegerField('Pontuação do atleta', null=True, blank=True)
+    qtd_etapas_jogadas = models.IntegerField('Quantidade de etapas que participou', null=True, blank=True)
     
     is_active = models.BooleanField(_('Ativo'), default=False, help_text='Se ativo, o usuário tem permissão para acessar o sistema')
     slug = models.SlugField('Hash',max_length= 200,null=True,blank=True)
@@ -62,11 +81,13 @@ class Usuario(AbstractBaseUser):
 
     class Meta:
         ordering            =   ['nome']
-        verbose_name        =   ('usuário')
-        verbose_name_plural =   ('usuários')
+        verbose_name        =   ('longevo')
+        verbose_name_plural =   ('longevos')
 
     def __str__(self):
-        return '%s - %s' % (self.nome, self.email)
+        if self.apelido:
+            return '%s - %s' % (self.apelido, self.celular)
+        return '%s - %s' % (self.nome, self.celular)
 
 
     def has_module_perms(self, app_label):
@@ -85,6 +106,10 @@ class Usuario(AbstractBaseUser):
         if not self.slug:
             self.slug = gerar_hash()
         self.nome = self.nome.upper()
+        if self.apelido:
+            self.apelido = self.apelido.upper()
+        self.pontuacao = 0
+        self.qtd_etapas_jogadas = 0
         if not self.id:
             self.set_password(self.password) #criptografa a senha digitada no forms
         super(Usuario, self).save(*args, **kwargs)
