@@ -21,7 +21,7 @@ class UsuarioListView(LoginRequiredMixin, ListView):
 
 class UsuarioCreateView(LoginRequiredMixin, StaffRequiredMixin, CreateView):
     model = Usuario
-    fields = ['tipo', 'nome', 'apelido', 'posicao', 'pontuacao', 'qtd_etapas_jogadas', 'is_active', 'celular', 'email','password'] 
+    fields = ['tipo', 'nome', 'apelido', 'data_nascimento', 'posicao', 'pontuacao', 'qtd_etapas_jogadas', 'is_active', 'celular', 'email','password'] 
     
     success_url = 'usuario_list'
     
@@ -32,7 +32,7 @@ class UsuarioCreateView(LoginRequiredMixin, StaffRequiredMixin, CreateView):
 
 class UsuarioUpdateView(LoginRequiredMixin, StaffRequiredMixin, UpdateView):
     model = Usuario
-    fields = ['tipo', 'nome', 'apelido', 'posicao', 'pontuacao', 'qtd_etapas_jogadas', 'is_active', 'celular', 'email'] 
+    fields = ['tipo', 'nome', 'apelido', 'data_nascimento','posicao', 'pontuacao', 'qtd_etapas_jogadas', 'is_active', 'celular', 'email'] 
     success_url = 'usuario_list'
     
     def get_success_url(self):

@@ -10,7 +10,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="{% url 'home' %}">STC19</a>
+      <a class="navbar-brand" href="{% url 'home' %}">Longevos +40</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -21,33 +21,19 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{% bootstrap_icon 'cog' %} Gestão básica <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="{% url 'usuario_list' %}">{% bootstrap_icon 'user' %} Usuários</a></li>
-            <li><a href="{% url 'unidade_list' %}">{% bootstrap_icon 'tower' %} Unidades de Atendimento</a></li>
-            <li><a href="{% url 'medicamento_list' %}">{% bootstrap_icon 'plus-sign' %} Medicamentos </a></li>
+            <li><a href="{% url 'usuario_list' %}">{% bootstrap_icon 'user' %} Longevos</a></li>
+            <li><a href="{% url 'unidade_list' %}">{% bootstrap_icon 'tower' %} Etapa</a></li>
           </ul>
         </li>
 
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{% bootstrap_icon 'user' %} Pacientes <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{% bootstrap_icon 'user' %} ???? <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="{% url 'paciente_list' %}">Todos</a></li>
+            <li><a href=""">Todos</a></li>
           </ul>
         </li>
 
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{% bootstrap_icon 'list-alt' %} Triagens <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="{% url 'triagem_list' %}">Todas</a></li>
-          </ul>
-        </li>
-
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{% bootstrap_icon 'plus' %} Consultas <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="{% url 'consulta_list' %}">Todas</a></li>
-          </ul>
-        </li>
-
+        
         <!-- <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{% bootstrap_icon 'print' %} Relatórios <span class="caret"></span></a>
           <ul class="dropdown-menu">

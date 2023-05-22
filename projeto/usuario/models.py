@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 
+from datetime import datetime
 from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, UserManager
 from django.db import models
@@ -62,11 +63,12 @@ class Usuario(AbstractBaseUser):
     tipo = models.CharField('Tipo do usuário *', max_length=15, choices=TIPOS_USUARIOS, default='ATLETA', help_text='* Campos obrigatórios')
     nome = models.CharField('Nome completo *', max_length=100)
     apelido = models.CharField('Apelido', max_length=50, null = True, blank= True)
+    data_nascimento = models.DateField('Data nascimento *', null = True, blank = False, help_text="Use dd/mm/aaaa")
     email = models.EmailField('Email *', max_length=100)
     celular = models.CharField('Número celular com DDD *', unique=True, max_length=11, db_index=True, help_text="Use DDD, por exemplo 55987619832")
     
-    posicao = models.CharField('Posição na quadra *', max_length=8, choices=POSICAO)
-    pontuacao = models.IntegerField('Pontuação do atleta', null=True, blank=True)
+    posicao = models.CharField('Posição na quadra *', max_length=8, choices=POSICAO, default=0)
+    pontuacao = models.IntegerField('Pontuação do atleta', null=True, blank=True, default=0)
     qtd_etapas_jogadas = models.IntegerField('Quantidade de etapas que participou', null=True, blank=True)
     
     is_active = models.BooleanField(_('Ativo'), default=False, help_text='Se ativo, o usuário tem permissão para acessar o sistema')
@@ -107,15 +109,20 @@ class Usuario(AbstractBaseUser):
             self.slug = gerar_hash()
         self.nome = self.nome.upper()
         if self.apelido:
-            self.apelido = self.apelido.upper()
-        self.pontuacao = 0
-        self.qtd_etapas_jogadas = 0
+            self.apelido = self.apelido.upper()        
         if not self.id:
             self.set_password(self.password) #criptografa a senha digitada no forms
         super(Usuario, self).save(*args, **kwargs)
 
     def get_id(self):
         return self.id
+    
+    @property
+    def idade(self):
+        try:
+            return  datetime.now().year - self.data_nascimento.year
+        except:
+            return 0
 
     @property
     def get_primeiro_nome(self):
