@@ -18,21 +18,9 @@
       <ul class="nav navbar-nav">
         <li class=""><a href="{% url 'home' %}"> {% bootstrap_icon 'home' %} Home <span class="sr-only">(current)</span></a></li>
 
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{% bootstrap_icon 'cog' %} Gestão básica <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="{% url 'usuario_list' %}">{% bootstrap_icon 'user' %} Longevos</a></li>
-            <li><a href="{% url 'etapa_list' %}">{% bootstrap_icon 'tower' %} Etapa</a></li>
-          </ul>
-        </li>
-
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{% bootstrap_icon 'user' %} ???? <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href=""">Todos</a></li>
-          </ul>
-        </li>
-
+        <li class=""><a href="{% url 'usuario_list' %}">{% bootstrap_icon 'user' %} Longevos</a></li>
+        <li class=""><a href="{% url 'etapa_list' %}">{% bootstrap_icon 'tower' %} Etapa</a></li>
+        
         
         <!-- <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{% bootstrap_icon 'print' %} Relatórios <span class="caret"></span></a>

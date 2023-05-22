@@ -18,18 +18,9 @@ class AdministradorAtivoManager(UserManager):
         return super().get_queryset().filter(tipo='ADMINISTRADOR', is_active=True)
 
 
-class EnfermeiroAtivoManager(UserManager):
-    def get_queryset(self):
-        return super().get_queryset().filter(Q(tipo='ENFERMEIRO') | Q(tipo='ADMINISTRADOR'), is_active=True)
-    
-
-class TecnicoAtivoManager(UserManager):
+class TreinadorAtivoManager(UserManager):
     def get_queryset(self):
         return super().get_queryset().filter(tipo='TÉCNICO', is_active=True)
-
-class MedicoAtivoManager(UserManager):
-    def get_queryset(self):
-        return super().get_queryset().filter(tipo='MÉDICO', is_active=True)        
 
 
 class AtletaAtivoManager(UserManager):
@@ -37,17 +28,12 @@ class AtletaAtivoManager(UserManager):
         return super().get_queryset().filter(tipo='ATLETA', is_active=True)        
 
 
-class TecnicoEnfermeiroAtivoManager(UserManager):
-   def get_queryset(self):
-        return super().get_queryset().filter(Q(tipo='ENFERMEIRO') | Q(tipo='TÉCNICO'), is_active=True)
-
-
 class Usuario(AbstractBaseUser):
     #1 campo da tupla fica no banco de dados
     #2 campo da tupla eh mostrado para o usuario
     TIPOS_USUARIOS = (
         ('ADMINISTRADOR', 'Administrador'),
-        ('TÉCNICO', 'Técnico' ),
+        ('TREINADOR', 'Treinador' ),
         ('ATLETA', 'Atleta' ),
     )    
     #1 campo da tupla fica no banco de dados
@@ -65,7 +51,7 @@ class Usuario(AbstractBaseUser):
     apelido = models.CharField('Apelido', max_length=50, null = True, blank= True)
     data_nascimento = models.DateField('Data nascimento *', null = True, blank = True, help_text="Use dd/mm/aaaa")
     email = models.EmailField('Email ', max_length=100, null = True, blank = True, help_text="O email é fundamental para recuperar senha")
-    celular = models.CharField('Número celular com DDD *', unique=True, max_length=11, db_index=True, help_text="Use DDD, por exemplo 55987619832")
+    celular = models.CharField('Número celular com DDD', unique=True, max_length=11, db_index=True, help_text="Use DDD, por exemplo 55987619832")
     
     posicao = models.CharField('Posição na quadra *', max_length=8, choices=POSICAO)
     pontuacao = models.IntegerField('Pontuação do atleta', null=True, blank=True, default=0)
@@ -76,10 +62,8 @@ class Usuario(AbstractBaseUser):
 
     objects = UserManager()
     administradores = AdministradorAtivoManager()
-    enfermeiros = EnfermeiroAtivoManager()
-    tecnicos = TecnicoAtivoManager()
-    medicos = MedicoAtivoManager()
-    tecnicos_enfermeiros = TecnicoEnfermeiroAtivoManager()
+    treinadores = TreinadorAtivoManager()
+    
 
     class Meta:
         ordering            =   ['nome']

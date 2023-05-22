@@ -31,7 +31,13 @@
 				<tr>
 					<td>{{ usuario.tipo }}</td>
 					<td>{{ usuario.nome }}</td>
-					<td>{{ usuario.apelido }}</td>
+					<td>
+						{% if usuario.apelido %}
+							{{ usuario.apelido }}
+						{% else %}
+							---
+						{% endif %}
+					</td>
 					<td class="text-center">{{ usuario.idade }}</td>
 					<td class="text-center">{{ usuario.posicao }}</td>
 					<td class="text-center">{{ usuario.pontuacao }}</td>
