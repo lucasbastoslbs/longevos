@@ -63,13 +63,13 @@ class Usuario(AbstractBaseUser):
     tipo = models.CharField('Tipo do usuário *', max_length=15, choices=TIPOS_USUARIOS, default='ATLETA', help_text='* Campos obrigatórios')
     nome = models.CharField('Nome completo *', max_length=100)
     apelido = models.CharField('Apelido', max_length=50, null = True, blank= True)
-    data_nascimento = models.DateField('Data nascimento *', null = True, blank = False, help_text="Use dd/mm/aaaa")
-    email = models.EmailField('Email *', max_length=100)
+    data_nascimento = models.DateField('Data nascimento *', null = True, blank = True, help_text="Use dd/mm/aaaa")
+    email = models.EmailField('Email ', max_length=100, null = True, blank = True, help_text="O email é fundamental para recuperar senha")
     celular = models.CharField('Número celular com DDD *', unique=True, max_length=11, db_index=True, help_text="Use DDD, por exemplo 55987619832")
     
-    posicao = models.CharField('Posição na quadra *', max_length=8, choices=POSICAO, default=0)
+    posicao = models.CharField('Posição na quadra *', max_length=8, choices=POSICAO)
     pontuacao = models.IntegerField('Pontuação do atleta', null=True, blank=True, default=0)
-    qtd_etapas_jogadas = models.IntegerField('Quantidade de etapas que participou', null=True, blank=True)
+    qtd_etapas_jogadas = models.IntegerField('Quantidade de etapas que participou', null=True, blank=True, default=0)
     
     is_active = models.BooleanField(_('Ativo'), default=False, help_text='Se ativo, o usuário tem permissão para acessar o sistema')
     slug = models.SlugField('Hash',max_length= 200,null=True,blank=True)

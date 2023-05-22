@@ -11,36 +11,36 @@ from django.urls import reverse
 
 from utils.decorators import LoginRequiredMixin, StaffRequiredMixin
 
-from .models import Unidade
+from .models import Etapa
 
 
-class UnidadeListView(LoginRequiredMixin, ListView):
-    model = Unidade
+class EtapaListView(LoginRequiredMixin, ListView):
+    model = Etapa
  
 
-class UnidadeCreateView(LoginRequiredMixin, StaffRequiredMixin, CreateView):
-    model = Unidade
-    fields = ['nome', 'endereco', 'coordenador', 'fone', 'is_active']
-    success_url = 'unidade_list'
+class EtapaCreateView(LoginRequiredMixin, StaffRequiredMixin, CreateView):
+    model = Etapa
+    fields = ['data', 'local', 'total_duplas', 'total_chaves', 'is_active']
+    success_url = 'etapa_list'
     
     def get_success_url(self):
-        messages.success(self.request, 'Unidade cadastrada com sucesso na plataforma!')
+        messages.success(self.request, 'Etapa cadastrada com sucesso na plataforma!')
         return reverse(self.success_url)
 
 
-class UnidadeUpdateView(LoginRequiredMixin, StaffRequiredMixin, UpdateView):
-    model = Unidade
-    fields = ['nome','endereco', 'coordenador', 'fone', 'is_active']
-    success_url = 'unidade_list'
+class EtapaUpdateView(LoginRequiredMixin, StaffRequiredMixin, UpdateView):
+    model = Etapa
+    fields = ['data', 'local', 'total_duplas', 'total_chaves', 'is_active']
+    success_url = 'etapa_list'
     
     def get_success_url(self):
-        messages.success(self.request, 'Dados do Unidade atualizados com sucesso na plataforma!')
+        messages.success(self.request, 'Dados da Etapa atualizados com sucesso na plataforma!')
         return reverse(self.success_url) 
 
 
-class UnidadeDeleteView(LoginRequiredMixin, StaffRequiredMixin, DeleteView):
-    model = Unidade
-    success_url = 'unidade_list'
+class EtapaDeleteView(LoginRequiredMixin, StaffRequiredMixin, DeleteView):
+    model = Etapa
+    success_url = 'etapa_list'
 
     def delete(self, request, *args, **kwargs):
         """
@@ -52,5 +52,5 @@ class UnidadeDeleteView(LoginRequiredMixin, StaffRequiredMixin, DeleteView):
         try:
             self.object.delete()
         except Exception as e:
-            messages.error(request, 'Há dependências ligadas à essa Unidade, permissão negada!')
+            messages.error(request, 'Há dependências ligadas à essa Etapa, permissão negada!')
         return redirect(self.success_url)

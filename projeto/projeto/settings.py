@@ -42,11 +42,9 @@ INSTALLED_APPS = [
     'bootstrap3',
     
     'usuario',
-    'unidade',
-    'triagem',
-    'medicamento',
-    'consulta',
-    'paciente'
+    'etapa',
+
+    
 ]
 
 MIDDLEWARE = [
