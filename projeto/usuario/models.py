@@ -63,6 +63,7 @@ class Usuario(AbstractBaseUser):
     objects = UserManager()
     administradores = AdministradorAtivoManager()
     treinadores = TreinadorAtivoManager()
+    atletas = AtletaAtivoManager()
     
 
     class Meta:

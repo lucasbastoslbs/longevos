@@ -1,22 +1,49 @@
-from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth import login
+from django.db.models import Q
+
 from django.shortcuts import redirect
 from django.urls import reverse
 
-from django.views.generic import ListView, TemplateView, DetailView, RedirectView
+from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
-from mail_templated import EmailMessage
-
-from utils.decorators import LoginRequiredMixin, StaffRequiredMixin, EnfermeiroRequiredMixin
+from utils.decorators import LoginRequiredMixin, StaffRequiredMixin
 
 from .models import Usuario
-# from .forms import UsuarioRegisterForm
+from .forms import BuscaUsuarioForm
 
 
 class UsuarioListView(LoginRequiredMixin, ListView):
     model = Usuario
+    template_name = 'usuario/usuario_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.GET:
+            #quando ja tem dado filtrando
+            context['form'] = BuscaUsuarioForm(data=self.request.GET)
+        else:
+            #quando acessa sem dado filtrando
+            context['form'] = BuscaUsuarioForm()
+        return context
+
+    def get_queryset(self):
+        qs = Usuario.objects.all()
+        
+        if self.request.GET:
+            #quando ja tem dado filtrando
+            form = BuscaUsuarioForm(data=self.request.GET)
+        else:
+            #quando acessa sem dado filtrando
+            form = BuscaUsuarioForm()
+
+        if form.is_valid():
+            pesquisa = form.cleaned_data.get('pesquisa')
+
+            if pesquisa:
+                qs = qs.filter(Q(nome__icontains=pesquisa) | Q(apelido__icontains=pesquisa) | Q(posicao__icontains=pesquisa))
+            
+        return qs
 
 
 class UsuarioCreateView(LoginRequiredMixin, StaffRequiredMixin, CreateView):
