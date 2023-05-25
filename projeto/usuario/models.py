@@ -20,7 +20,7 @@ class AdministradorAtivoManager(UserManager):
 
 class TreinadorAtivoManager(UserManager):
     def get_queryset(self):
-        return super().get_queryset().filter(tipo='TÉCNICO', is_active=True)
+        return super().get_queryset().filter(tipo='TREINADOR', is_active=True)
 
 
 class AtletaAtivoManager(UserManager):
@@ -73,8 +73,8 @@ class Usuario(AbstractBaseUser):
 
     def __str__(self):
         if self.apelido:
-            return '%s - %s' % (self.apelido, self.celular)
-        return '%s - %s' % (self.nome, self.celular)
+            return '%s - %s' % (self.apelido, self.posicao)
+        return '%s - %s' % (self.nome, self.posicao)
 
 
     def has_module_perms(self, app_label):

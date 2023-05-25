@@ -32,7 +32,7 @@ class Inscricao(models.Model):
         unique_together     =   [['etapa','atleta']]
 
     def __str__(self):
-        return "Etapa: %s. Atleta: %s. Posição: %s." % (self.etapa, self.atleta, self.posicao)
+        return "Etapa: %s. Atleta: %s. Posição na etapa: %s." % (self.etapa, self.atleta, self.posicao_etapa)
 
     def save(self, *args, **kwargs):                
         if not self.slug:
