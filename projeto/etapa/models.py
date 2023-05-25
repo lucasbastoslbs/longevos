@@ -19,6 +19,12 @@ class Etapa(models.Model):
     LOCAL = (
         ('STAR PADEL', 'Star Padel'),
     ) 
+    
+    GRUPO = (
+        ('A', 'A'),
+        ('B', 'B' ),
+    )
+    grupo = models.CharField('Turma Longeva', max_length=5, choices=GRUPO, null=True, blank=False)
     data = models.DateField('Data da etapa *', help_text='Use dd/mm/aaaa')
     local = models.CharField('Local da etapa *', max_length=15, choices=LOCAL, default='STAR PADEL', help_text='* Campos obrigatórios')
     total_duplas = models.IntegerField('Total de duplas', null=True, blank=True, default=0)
@@ -33,17 +39,25 @@ class Etapa(models.Model):
 
     
     class Meta:
-        ordering            =   ['-data']
+        ordering            =   ['grupo','-data']
         verbose_name        =   ('etapa')
         verbose_name_plural =   ('etapas')
 
     def __str__(self):
-        return '%s' % (self.data)
+        return '%s: %s' % (self.grupo, self.data)
 
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = gerar_hash()        
         super(Etapa, self).save(*args, **kwargs)
+
+    @property
+    def vagas_esquerda(self):
+        return self.total_duplas - self.inscritos_esquerda
+    
+    @property
+    def vagas_direita(self):
+        return self.total_duplas - self.inscritos_direita
 
     @property
     def get_absolute_url(self):

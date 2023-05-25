@@ -19,7 +19,7 @@
 			  </div>
 			  <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
 				  <br>
-				  <a href="{% url 'usuario_create' %}" style="width: 100%;" class="btn btn-md btn-primary btn-lg">{% bootstrap_icon 'floppy-disk' %} Cadastrar Longevo</a>
+				  <a href="{% url 'usuario_create' %}" style="width: 100%;" class="btn btn-md btn-primary btn-lg">{% bootstrap_icon 'floppy-disk' %} Cadastrar</a>
 			  </div>
 		  </div>
 	  </form>
@@ -33,6 +33,7 @@
 	<table class="table table-hover">
   		<thead>
 			<th>Tipo</th>
+			<th>Turma</th>
   			<th>Nome</th>
 			<th>Apelido</th>
 			<th class="text-center">Idade</th>
@@ -49,6 +50,7 @@
   			{% for usuario in object_list %}
 				<tr>
 					<td>{{ usuario.tipo }}</td>
+					<td>{{ usuario.grupo }}</td>
 					<td>{{ usuario.nome }}</td>
 					<td>
 						{% if usuario.apelido %}

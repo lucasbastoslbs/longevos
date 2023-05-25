@@ -23,8 +23,10 @@
   		<tbody>
   			{% for inscricao in object_list %}
 				<tr>
-					<td>{{ inscricao.etapa.data|date:'d/m/Y' }}</td>
-					<td>{{ inscricao.atleta.apelido }} : {{inscricao.atleta.posicao}}</td>
+					<td>
+						{{ inscricao.etapa }}<br>
+					</td>
+					<td>{{inscricao.atleta.grupo}}:{{ inscricao.atleta.apelido }}. {{inscricao.atleta.posicao}}</td>
 					<td>{{ inscricao.posicao_etapa }}</td>					
 					<td class="text-center">
 						{% bootstrap_button content='' href=inscricao.get_absolute_url button_type='link' icon='edit' button_class='btn btn-primary' size='sm' %}

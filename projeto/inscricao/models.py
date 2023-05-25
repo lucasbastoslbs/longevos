@@ -26,7 +26,7 @@ class Inscricao(models.Model):
     objects = models.Manager()
     
     class Meta:
-        ordering            =   ['-etapa__data', 'atleta__nome']
+        ordering            =   ['etapa__grupo','-etapa__data', 'posicao_etapa', 'atleta__nome']
         verbose_name        =   ('inscrição')
         verbose_name_plural =   ('inscrições')
         unique_together     =   [['etapa','atleta']]

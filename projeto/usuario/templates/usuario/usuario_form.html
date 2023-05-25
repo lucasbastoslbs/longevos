@@ -5,7 +5,12 @@
 {% endblock %}
 
 {% block title %}
-	{% bootstrap_icon 'user' %} Cadastro de usuário longevo
+	{% bootstrap_icon 'user' %} 
+  {% if not object %}
+    Cadastro de usuário longevo
+  {% else %}
+    Atualiza cadastro de: {{ object.nome }}
+  {% endif %}
 {% endblock %}
 
 {% block content %}

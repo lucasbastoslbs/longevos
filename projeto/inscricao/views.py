@@ -27,7 +27,11 @@ class InscricaoCreateView(LoginRequiredMixin, CreateView):
     
     def form_valid(self, form):
         formulario = form.save(commit=False)
-        
+        print("Direita: ", formulario.etapa.inscritos_direita)
+        print("Esquerda: ", formulario.etapa.inscritos_esquerda)
+        if (formulario.etapa.total_duplas - (formulario.etapa.inscritos_direita + formulario.etapa.inscritos_esquerda) == 0):
+            messages.error(self.request,"Não há mais vagas para nenhuma posição ")  
+            return super().form_invalid(form)
 
         if (formulario.posicao_etapa == 'DIREITA'):
             formulario.etapa.inscritos_direita += 1

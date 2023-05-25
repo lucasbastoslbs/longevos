@@ -20,7 +20,7 @@ class EtapaListView(LoginRequiredMixin, ListView):
 
 class EtapaCreateView(LoginRequiredMixin, StaffRequiredMixin, CreateView):
     model = Etapa
-    fields = ['data', 'local', 'total_duplas', 'total_chaves', 'is_active']
+    fields = ['grupo','data', 'local', 'total_duplas', 'total_chaves', 'is_active']
     success_url = 'etapa_list'
     
     def get_success_url(self):
@@ -30,7 +30,7 @@ class EtapaCreateView(LoginRequiredMixin, StaffRequiredMixin, CreateView):
 
 class EtapaUpdateView(LoginRequiredMixin, StaffRequiredMixin, UpdateView):
     model = Etapa
-    fields = ['data', 'local', 'total_duplas', 'total_chaves', 'is_active']
+    fields = ['grupo','data', 'local', 'total_duplas', 'total_chaves', 'is_active']
     success_url = 'etapa_list'
     
     def get_success_url(self):

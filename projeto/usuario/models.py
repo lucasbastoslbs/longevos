@@ -44,9 +44,18 @@ class Usuario(AbstractBaseUser):
         ('AMBAS', 'Ambas' ),
     )
 
+    #1 campo da tupla fica no banco de dados
+    #2 campo da tupla eh mostrado para o usuario
+    GRUPO = (
+        ('A', 'A'),
+        ('B', 'B' ),
+        ('AMBAS','Ambas')
+    )
+ 
     USERNAME_FIELD = 'celular'
 
     tipo = models.CharField('Tipo do usuário *', max_length=15, choices=TIPOS_USUARIOS, default='ATLETA', help_text='* Campos obrigatórios')
+    grupo = models.CharField('Turma Longeva', max_length=5, choices=GRUPO, null=True, blank=False)
     nome = models.CharField('Nome completo *', max_length=100)
     apelido = models.CharField('Apelido', max_length=50, null = True, blank= True)
     data_nascimento = models.DateField('Data nascimento *', null = True, blank = True, help_text="Use dd/mm/aaaa")
@@ -67,14 +76,14 @@ class Usuario(AbstractBaseUser):
     
 
     class Meta:
-        ordering            =   ['nome']
+        ordering            =   ['tipo','grupo', '-pontuacao', '-qtd_etapas_jogadas', 'nome']
         verbose_name        =   ('longevo')
         verbose_name_plural =   ('longevos')
 
     def __str__(self):
         if self.apelido:
-            return '%s - %s' % (self.apelido, self.posicao)
-        return '%s - %s' % (self.nome, self.posicao)
+            return '%s: %s. %s' % (self.grupo, self.apelido, self.posicao)
+        return '%s: %s. %s' % (self.grupo, self.apelido, self.posicao)
 
 
     def has_module_perms(self, app_label):

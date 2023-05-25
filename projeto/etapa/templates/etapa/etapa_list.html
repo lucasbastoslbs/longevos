@@ -14,6 +14,7 @@
 	<table class="table table-hover">
   		<thead>
 			<th>Local</th>
+			<th class="text-center">Grupo/Turma</th>
   			<th>Data</th>
 			<th class="text-center">Total duplas</th>
 			<th class="text-center">Total chaves</th>
@@ -28,6 +29,7 @@
   			{% for etapa in object_list %}
 				<tr>
 					<td>{{ etapa.local }}</td>
+					<td class="text-center">{{ etapa.grupo }}</td>
 					<td>{{ etapa.data|date:'d/m/Y' }}</td>
 					<td class="text-center">{{ etapa.total_duplas }}</td>
 					<td class="text-center">{{ etapa.total_chaves }}</td>
