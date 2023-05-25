@@ -21,31 +21,43 @@ class InscricaoCreateView(LoginRequiredMixin, CreateView):
     model = Inscricao    
     form_class = InscricaoForm
     success_url = 'inscricao_list'
+    success_message = 'Inscrição registrada com sucesso na plataforma!'
+    
 
     # success_url = reverse_lazy('aplicativo:fonte_list')
-    # success_message = 'Fonte ou site cadastrada com sucess
     
     def form_valid(self, form):
         formulario = form.save(commit=False)
-        print("Direita: ", formulario.etapa.inscritos_direita)
-        print("Esquerda: ", formulario.etapa.inscritos_esquerda)
-        if (formulario.etapa.total_duplas - (formulario.etapa.inscritos_direita + formulario.etapa.inscritos_esquerda) == 0):
-            messages.error(self.request,"Não há mais vagas para nenhuma posição ")  
+        
+        # print("Vagas: ", formulario.etapa.total_duplas * 2)
+        # print("Direita: ", formulario.etapa.inscritos_direita)
+        # print("Esquerda: ", formulario.etapa.inscritos_esquerda)
+        # print("Diferenca: ",(formulario.etapa.total_duplas * 2) - (formulario.etapa.inscritos_direita + formulario.etapa.inscritos_esquerda))
+        
+        if ((formulario.etapa.total_duplas * 2) - (formulario.etapa.inscritos_direita + formulario.etapa.inscritos_esquerda) == 0):
+            messages.error(self.request,"Não há mais vagas para nenhuma posição. Inscrição NÃO realizada. Aguarde liberar uma vaga!!!")  
             return super().form_invalid(form)
-
-        if (formulario.posicao_etapa == 'DIREITA'):
+        elif (formulario.posicao_etapa == 'DIREITA'):
+            if (formulario.etapa.total_duplas == formulario.etapa.inscritos_direita):
+                messages.error(self.request,"Não há mais vagas para DIREITA, somente para ESQUERDA ")  
+                return super().form_invalid(form)
             formulario.etapa.inscritos_direita += 1
         else:
+            if (formulario.etapa.total_duplas == formulario.etapa.inscritos_esquerda):
+                messages.error(self.request,"Não há mais vagas para ESQUERDA, somente para DIREITA")  
+                return super().form_invalid(form)
             formulario.etapa.inscritos_esquerda += 1
 
+
+        print("ENTREI AQUI....")
         formulario.etapa.save()
         formulario.save()
         return super().form_valid(form)
         
 
-    def get_success_url(self):
-        messages.success(self.request, 'Inscrição regustrada com sucesso na plataforma!')
-        return reverse(self.success_url)
+    # def get_success_url(self):
+    #     messages.success(self.request, 'Inscrição registrada com sucesso na plataforma!')
+    #     return reverse(self.success_url)
 
 
 class InscricaoUpdateView(LoginRequiredMixin, StaffRequiredMixin, UpdateView):

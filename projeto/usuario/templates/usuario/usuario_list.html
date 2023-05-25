@@ -34,8 +34,8 @@
   		<thead>
 			<th>Tipo</th>
 			<th>Turma</th>
+			<th>Apelido</th>ß
   			<th>Nome</th>
-			<th>Apelido</th>
 			<th class="text-center">Idade</th>
 			<th class="text-center">Posição</th>
 			<th class="text-center">Pontuação</th>
@@ -51,7 +51,6 @@
 				<tr>
 					<td>{{ usuario.tipo }}</td>
 					<td>{{ usuario.grupo }}</td>
-					<td>{{ usuario.nome }}</td>
 					<td>
 						{% if usuario.apelido %}
 							{{ usuario.apelido }}
@@ -59,6 +58,7 @@
 							
 						{% endif %}
 					</td>
+					<td>{{ usuario.nome }}</td>
 					<td class="text-center">{{ usuario.idade }}</td>
 					<td class="text-center">{{ usuario.posicao }}</td>
 					<td class="text-center">{{ usuario.pontuacao }}</td>
