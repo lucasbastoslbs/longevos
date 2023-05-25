@@ -21,7 +21,24 @@ class InscricaoCreateView(LoginRequiredMixin, CreateView):
     model = Inscricao    
     form_class = InscricaoForm
     success_url = 'inscricao_list'
+
+    # success_url = reverse_lazy('aplicativo:fonte_list')
+    # success_message = 'Fonte ou site cadastrada com sucess
     
+    def form_valid(self, form):
+        formulario = form.save(commit=False)
+        
+
+        if (formulario.posicao_etapa == 'DIREITA'):
+            formulario.etapa.inscritos_direita += 1
+        else:
+            formulario.etapa.inscritos_esquerda += 1
+
+        formulario.etapa.save()
+        formulario.save()
+        return super().form_valid(form)
+        
+
     def get_success_url(self):
         messages.success(self.request, 'Inscrição regustrada com sucesso na plataforma!')
         return reverse(self.success_url)

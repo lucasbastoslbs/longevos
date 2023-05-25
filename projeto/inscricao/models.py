@@ -34,7 +34,7 @@ class Inscricao(models.Model):
     def __str__(self):
         return "Etapa: %s. Atleta: %s. Posição na etapa: %s." % (self.etapa, self.atleta, self.posicao_etapa)
 
-    def save(self, *args, **kwargs):                
+    def save(self, *args, **kwargs):                        
         if not self.slug:
             self.slug = gerar_hash()
         super(Inscricao, self).save(*args, **kwargs)
