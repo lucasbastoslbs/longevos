@@ -80,9 +80,17 @@ class InscricaoDeleteView(LoginRequiredMixin, StaffRequiredMixin, DeleteView):
         success URL. If the object is protected, send an error message.
         """
         self.object = self.get_object()
-        success_url = self.get_success_url()
+        
         try:
+            if (self.object.posicao_etapa == "DIREITA"):
+                self.object.etapa.inscritos_direita -= 1
+            
+            if (self.object.posicao_etapa == "ESQUERDA"):
+                self.object.etapa.inscritos_esquerda -= 1
+            
+            self.object.etapa.save()
             self.object.delete()
+            
         except Exception as e:
             messages.error(request, 'Há dependências ligadas a essa Inscrição, permissão negada!')
         return redirect(self.success_url)
