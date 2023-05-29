@@ -14,6 +14,7 @@
 	<table class="table table-hover">
   		<thead>
 			<th>Etapa</th>
+			<th class="text-center">Código da dupla</th>
   			<th>Direita</th>
 			<th>Esquerda</th>
 			<th class="text-center">Pontuação dupla</th>
@@ -25,6 +26,7 @@
   			{% for dupla in object_list %}
 				<tr>
 					<td>{{ dupla.atleta_direita.etapa }}</td>
+					<td class="text-center">{{ dupla.id }}</td>
 					<td>
 						{{ dupla.atleta_direita.atleta.apelido }}<br>
 						<small> {{ dupla.atleta_direita.atleta.pontuacao}} </small>

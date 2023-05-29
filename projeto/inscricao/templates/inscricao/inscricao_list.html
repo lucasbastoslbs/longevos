@@ -16,7 +16,8 @@
   		<thead>
 			<th>Etapa</th>
 			<th>Atleta</th>
-			<th>Posição da etapa</th>
+			
+			<th class="text-center">Posição da etapa</th>
   			<th class="text-center">Editar</th>
   			<th class="text-center">Excluir</th>
   		</thead>
@@ -26,8 +27,11 @@
 					<td>
 						{{ inscricao.etapa }}<br>
 					</td>
-					<td>{{inscricao.atleta.grupo}}:{{ inscricao.atleta.apelido }}. {{inscricao.atleta.posicao}}</td>
-					<td>{{ inscricao.posicao_etapa }}</td>					
+					<td>
+						{{ inscricao.atleta.apelido }}. {{inscricao.atleta.posicao}}
+						<br><small>Pontos: {{ inscricao.atleta.pontuacao }}</small>
+					</td>					
+					<td class="text-center">{{ inscricao.posicao_etapa }}</td>					
 					<td class="text-center">
 						{% bootstrap_button content='' href=inscricao.get_absolute_url button_type='link' icon='edit' button_class='btn btn-primary' size='sm' %}
 					</td>

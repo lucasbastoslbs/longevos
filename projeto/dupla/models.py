@@ -30,6 +30,7 @@ class Dupla(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = gerar_hash()
+        self.pontuacao_dupla = self.atleta_direita.atleta.pontuacao + self.atleta_esquerda.atleta.pontuacao
         self.atleta_direita.com_dupla = True
         self.atleta_esquerda.com_dupla = True
         self.atleta_direita.save()

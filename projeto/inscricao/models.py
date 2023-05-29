@@ -44,13 +44,13 @@ class Inscricao(models.Model):
     esquerdas_sem_dupla = InscricaoEsquerdaSemDuplaAtivoManager()
     
     class Meta:
-        ordering            =   ['etapa__grupo','-etapa__data', 'posicao_etapa', 'atleta__nome']
+        ordering            =   ['etapa__grupo','-etapa__data', 'posicao_etapa', 'atleta__apelido']
         verbose_name        =   ('inscrição')
         verbose_name_plural =   ('inscrições')
         unique_together     =   [['etapa','atleta']]
 
     def __str__(self):
-        return "Etapa: %s. Atleta: %s. Posição na etapa: %s. Com dupla: %s" % (self.etapa, self.atleta, self.posicao_etapa, self.com_dupla)
+        return "Etapa: %s. Atleta: %s. Posição na etapa: %s." % (self.etapa, self.atleta.apelido, self.posicao_etapa)
 
     def save(self, *args, **kwargs):                        
         if not self.slug:
