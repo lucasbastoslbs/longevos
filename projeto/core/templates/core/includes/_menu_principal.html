@@ -26,11 +26,11 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{% bootstrap_icon 'play' %} Etapa <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Sortear duplas</a></li>
-            <li><a href="#">Montar duplas</a></li>
-            <li><a href="#">Montar chaves</a></li>
+            {% comment %} <li><a href="#">Sortear duplas - em breve</a></li> {% endcomment %}
+            <li><a href="{% url 'dupla_list' %}">Montar duplas</a></li>
+            <li><a href="#">Montar chaves - em breve</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="#">Informar placares</a></li>
+            <li><a href="#">Informar placares - em breve</a></li>
           </ul>
         </li>
       </ul>

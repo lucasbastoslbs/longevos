@@ -9,7 +9,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from django.urls import reverse
 
-from utils.decorators import LoginRequiredMixin, StaffRequiredMixin
+from utils.decorators import LoginRequiredMixin, StaffRequiredMixin, TreinadorRequiredMixin
 
 from .models import Etapa
 
@@ -18,7 +18,7 @@ class EtapaListView(LoginRequiredMixin, ListView):
     model = Etapa
  
 
-class EtapaCreateView(LoginRequiredMixin, StaffRequiredMixin, CreateView):
+class EtapaCreateView(LoginRequiredMixin, TreinadorRequiredMixin, CreateView):
     model = Etapa
     fields = ['grupo','data', 'local', 'total_duplas', 'total_chaves', 'is_active']
     success_url = 'etapa_list'
@@ -28,7 +28,7 @@ class EtapaCreateView(LoginRequiredMixin, StaffRequiredMixin, CreateView):
         return reverse(self.success_url)
 
 
-class EtapaUpdateView(LoginRequiredMixin, StaffRequiredMixin, UpdateView):
+class EtapaUpdateView(LoginRequiredMixin, TreinadorRequiredMixin, UpdateView):
     model = Etapa
     fields = ['grupo','data', 'local', 'total_duplas', 'total_chaves', 'is_active']
     success_url = 'etapa_list'
@@ -38,7 +38,7 @@ class EtapaUpdateView(LoginRequiredMixin, StaffRequiredMixin, UpdateView):
         return reverse(self.success_url) 
 
 
-class EtapaDeleteView(LoginRequiredMixin, StaffRequiredMixin, DeleteView):
+class EtapaDeleteView(LoginRequiredMixin, TreinadorRequiredMixin, DeleteView):
     model = Etapa
     success_url = 'etapa_list'
 

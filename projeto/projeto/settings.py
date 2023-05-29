@@ -44,8 +44,7 @@ INSTALLED_APPS = [
     'usuario',
     'etapa',
     'inscricao',
-
-    
+    'dupla'
 ]
 
 MIDDLEWARE = [

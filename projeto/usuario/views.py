@@ -7,7 +7,7 @@ from django.urls import reverse
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
-from utils.decorators import LoginRequiredMixin, StaffRequiredMixin
+from utils.decorators import LoginRequiredMixin, StaffRequiredMixin, TreinadorRequiredMixin
 
 from .models import Usuario
 from .forms import BuscaUsuarioForm
@@ -46,7 +46,7 @@ class UsuarioListView(LoginRequiredMixin, ListView):
         return qs
 
 
-class UsuarioCreateView(LoginRequiredMixin, StaffRequiredMixin, CreateView):
+class UsuarioCreateView(LoginRequiredMixin, TreinadorRequiredMixin, CreateView):
     model = Usuario
     fields = ['tipo', 'grupo', 'nome', 'apelido', 'data_nascimento', 'posicao', 'pontuacao', 'qtd_etapas_jogadas', 'is_active', 'celular', 'email','password'] 
     
@@ -57,7 +57,7 @@ class UsuarioCreateView(LoginRequiredMixin, StaffRequiredMixin, CreateView):
         return reverse(self.success_url)
 
 
-class UsuarioUpdateView(LoginRequiredMixin, StaffRequiredMixin, UpdateView):
+class UsuarioUpdateView(LoginRequiredMixin, TreinadorRequiredMixin, UpdateView):
     model = Usuario
     fields = ['tipo', 'grupo', 'nome', 'apelido', 'data_nascimento','posicao', 'pontuacao', 'qtd_etapas_jogadas', 'is_active', 'celular', 'email'] 
     success_url = 'usuario_list'
@@ -67,7 +67,7 @@ class UsuarioUpdateView(LoginRequiredMixin, StaffRequiredMixin, UpdateView):
         return reverse(self.success_url)
 
 
-class UsuarioDeleteView(LoginRequiredMixin, StaffRequiredMixin, DeleteView):
+class UsuarioDeleteView(LoginRequiredMixin, TreinadorRequiredMixin, DeleteView):
     model = Usuario
     success_url = 'usuario_list'
 

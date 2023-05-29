@@ -8,7 +8,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from django.urls import reverse
 
-from utils.decorators import LoginRequiredMixin,  StaffRequiredMixin
+from utils.decorators import LoginRequiredMixin,  StaffRequiredMixin, TreinadorRequiredMixin
 
 from .models import Inscricao
 from .forms import InscricaoForm
@@ -17,7 +17,7 @@ from .forms import InscricaoForm
 class InscricaoListView(LoginRequiredMixin,  ListView):
     model = Inscricao
     
-class InscricaoCreateView(LoginRequiredMixin, CreateView):
+class InscricaoCreateView(LoginRequiredMixin, TreinadorRequiredMixin, CreateView):
     model = Inscricao    
     form_class = InscricaoForm
     success_url = 'inscricao_list'
@@ -60,7 +60,7 @@ class InscricaoCreateView(LoginRequiredMixin, CreateView):
     #     return reverse(self.success_url)
 
 
-class InscricaoUpdateView(LoginRequiredMixin, StaffRequiredMixin, UpdateView):
+class InscricaoUpdateView(LoginRequiredMixin, TreinadorRequiredMixin, UpdateView):
     model = Inscricao
     form_class = InscricaoForm
     success_url = 'inscricao_list'
@@ -70,7 +70,7 @@ class InscricaoUpdateView(LoginRequiredMixin, StaffRequiredMixin, UpdateView):
         return reverse(self.success_url)
 
 
-class InscricaoDeleteView(LoginRequiredMixin, StaffRequiredMixin, DeleteView):
+class InscricaoDeleteView(LoginRequiredMixin, TreinadorRequiredMixin, DeleteView):
     model = Inscricao
     success_url = 'inscricao_list'
 
