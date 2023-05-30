@@ -64,5 +64,9 @@ class Etapa(models.Model):
         return reverse('etapa_update', args=[str(self.id)])
 
     @property
+    def get_processamento_chaves_etapa_url(self):
+        return reverse('processamento_chaves_etapa', args=[str(self.id)])
+
+    @property
     def get_delete_url(self):
         return reverse('etapa_delete', args=[str(self.id)])
