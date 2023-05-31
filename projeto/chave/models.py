@@ -11,5 +11,5 @@ class Chave(models.Model):
 
 
 class ChaveDupla(models.Model):
-    chave = models.ForeignKey(Chave, on_delete=models.PROTECT)
+    chave = models.ForeignKey('chave.Chave', on_delete=models.PROTECT)
     dupla = models.ForeignKey('dupla.Dupla', on_delete=models.PROTECT)
