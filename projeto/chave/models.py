@@ -8,8 +8,24 @@ class Chave(models.Model):
     class Meta:
         ordering = ['nome']
         unique_together = [['nome', 'etapa']]
+    
+    
+    def __str__(self):
+        return '%s' % (self.nome)
+
+    def save(self, *args, **kwargs):
+        super(Chave, self).save(*args, **kwargs)
 
 
 class ChaveDupla(models.Model):
     chave = models.ForeignKey('chave.Chave', on_delete=models.PROTECT)
     dupla = models.ForeignKey('dupla.Dupla', on_delete=models.PROTECT)
+    
+    class Meta:
+        ordering = ['chave']      
+    
+    # def __str__(self):
+    #     return 'Chave: %s: Dupla %s.' % (self.chave, self.dupla)
+
+    def save(self, *args, **kwargs):
+        super(ChaveDupla, self).save(*args, **kwargs)
