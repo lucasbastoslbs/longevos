@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 
 from django.contrib import messages
+from django.db.models import Q
 from django.shortcuts import redirect
 
 from django.views.generic import ListView
@@ -11,11 +12,46 @@ from django.urls import reverse
 from utils.decorators import LoginRequiredMixin,  StaffRequiredMixin, TreinadorRequiredMixin
 
 from .models import Inscricao
-from .forms import InscricaoForm
+from .forms import InscricaoForm, BuscaInscricaoForm
 
 
 class InscricaoListView(LoginRequiredMixin,  ListView):
     model = Inscricao
+
+    template_name = 'inscricao/inscricao_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.GET:
+            #quando ja tem dados filtrando
+            context['form'] = BuscaInscricaoForm(data=self.request.GET)
+        else:
+            #quando acessa sem dados filtrando
+            context['form'] = BuscaInscricaoForm()
+        return context
+
+    def get_queryset(self):
+        qs = Inscricao.objects.all() #trouxe todas as inscrições
+        
+        if self.request.GET:
+            #quando ja tem dados filtrando
+            form = BuscaInscricaoForm(data=self.request.GET)
+        else:
+            #quando acessa sem dados filtrando
+            form = BuscaInscricaoForm()
+
+        if form.is_valid():
+            atleta = form.cleaned_data.get('atleta')
+            posicao = form.cleaned_data.get('posicao')
+
+            if atleta:
+                qs = qs.filter(Q(atleta__nome__icontains=atleta) | Q(atleta__apelido__icontains=atleta))
+
+            if posicao:
+                qs = qs.filter(Q(posicao_etapa__icontains=posicao) | Q(atleta__posicao__icontains=posicao))
+            
+        return qs
+
     
 class InscricaoCreateView(LoginRequiredMixin, TreinadorRequiredMixin, CreateView):
     model = Inscricao    
