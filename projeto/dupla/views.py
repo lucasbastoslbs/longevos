@@ -42,13 +42,13 @@ class DuplaListView(LoginRequiredMixin, ListView):
 
         if form.is_valid():
             atleta = form.cleaned_data.get('atleta')
-            posicao = form.cleaned_data.get('posicao')
+            # posicao = form.cleaned_data.get('posicao')
 
             if atleta:
                 qs = qs.filter(Q(atleta_direita__atleta__nome__icontains=atleta) | Q(atleta_direita__atleta__apelido__icontains=atleta) | Q(atleta_esquerda__atleta__nome__icontains=atleta) | Q(atleta_esquerda__atleta__apelido__icontains=atleta))
 
-            if posicao:
-                qs = qs.filter(Q(atleta_direita__atleta__posicao__icontains=posicao) | Q(atleta_esquerda__atleta__posicao__icontains=posicao))
+            # if posicao:
+            #     qs = qs.filter(Q(atleta_direita__atleta__posicao__icontains=posicao) | Q(atleta_esquerda__atleta__posicao__icontains=posicao))
             
         return qs
  
