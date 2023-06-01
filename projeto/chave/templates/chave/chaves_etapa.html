@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block title %}
-	{% bootstrap_icon 'tower' %} Cadastro de Etapa Longevo
+	{% bootstrap_icon 'tower' %} Duplas por Chave
 {% endblock %}
 
 {% block content %}
@@ -19,9 +19,9 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mt-3">
             <div class="card">
-                <div class="card-header">
-                    <h2>Chaves</h2>
-                </div>
+                {% comment %} <div class="card-header">
+                    <h2 align='center'>Chaves</h2>
+                </div> {% endcomment %}
                 <div class="card-body text-center">
                     {% for chave in object.chave_set.all %}
                         <div class="row">
@@ -34,7 +34,7 @@
                                         <table class="table table-striped">
                                             {% for dupla_chave in chave.lista_duplas_chave %}
                                                 <tr>
-                                                    <td>{{dupla_chave.dupla.id}}. Direita: {{ dupla_chave.dupla.atleta_direita.atleta.apelido }}. Esquerda: {{ dupla_chave.dupla.atleta_esquerda.atleta.apelido }}</td>
+                                                    <td><b>Dupla: {{dupla_chave.dupla.id}}. </b>Direita: {{ dupla_chave.dupla.atleta_direita.atleta.apelido }}. Esquerda: {{ dupla_chave.dupla.atleta_esquerda.atleta.apelido }}</td>
                                                 </tr>
                                             {% endfor %}
                                         </table>
