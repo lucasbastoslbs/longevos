@@ -18,7 +18,8 @@ class Chave(models.Model):
         
     @property
     def lista_duplas_chave(self):
-        
+        lista = ChaveDupla.objects.filter(chave=self)
+        return lista
 
 class ChaveDupla(models.Model):
     chave = models.ForeignKey('chave.Chave', on_delete=models.PROTECT)

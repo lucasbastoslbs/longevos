@@ -32,9 +32,9 @@
                                     </div>
                                     <div class="card-body">
                                         <table class="table table-striped">
-                                            {% for dupla_chave in chave.duplachave_set.all %}
+                                            {% for dupla_chave in chave.lista_duplas_chave %}
                                                 <tr>
-                                                    <td>{{ dupla_chave }}</td>
+                                                    <td>{{dupla_chave.dupla.id}}. Direita: {{ dupla_chave.dupla.atleta_direita.atleta.apelido }}. Esquerda: {{ dupla_chave.dupla.atleta_esquerda.atleta.apelido }}</td>
                                                 </tr>
                                             {% endfor %}
                                         </table>
