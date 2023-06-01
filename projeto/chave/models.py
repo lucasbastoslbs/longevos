@@ -15,7 +15,10 @@ class Chave(models.Model):
 
     def save(self, *args, **kwargs):
         super(Chave, self).save(*args, **kwargs)
-
+        
+    @property
+    def lista_duplas_chave(self):
+        
 
 class ChaveDupla(models.Model):
     chave = models.ForeignKey('chave.Chave', on_delete=models.PROTECT)
