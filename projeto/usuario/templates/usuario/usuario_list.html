@@ -6,25 +6,25 @@
 {% endblock %}
 
 {% block content %}
-<div class="panel panel-default">
-	<div class="panel-body">
-	  <form class="form">
-		  <div class="row">
-			  <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-				{% bootstrap_field form.pesquisa  %}
-			  </div>			  
-			  <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
-				  <br>
-				  <button type="submit" class="btn btn-success btn-lg"  style="width: 100%;">{% bootstrap_icon 'search' %} Buscar</button>
-			  </div>
-			  <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
-				  <br>
-				  <a href="{% url 'usuario_create' %}" style="width: 100%;" class="btn btn-md btn-primary btn-lg">{% bootstrap_icon 'floppy-disk' %} Cadastrar</a>
-			  </div>
-		  </div>
-	  </form>
+	<div class="panel panel-default">
+		<div class="panel-body">
+		<form class="form">
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+					{% bootstrap_field form.pesquisa  %}
+				</div>			  
+				<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+					<br>
+					<button type="submit" class="btn btn-success btn-lg"  style="width: 100%;">{% bootstrap_icon 'search' %} Buscar</button>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+					<br>
+					<a href="{% url 'usuario_create' %}" style="width: 100%;" class="btn btn-md btn-primary btn-lg">{% bootstrap_icon 'floppy-disk' %} Cadastrar</a>
+				</div>
+			</div>
+		</form>
+		</div>
 	</div>
-  </div>
 	<table class="table table-hover">
   		<thead>
 			<th>Tipo</th>

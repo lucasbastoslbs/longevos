@@ -1,5 +1,4 @@
 from django import forms
-from django.db import models
 
 from usuario.models import Usuario
 
@@ -16,4 +15,15 @@ class InscricaoForm(forms.ModelForm):
         fields = ['etapa', 'atleta', 'posicao_etapa']
     
 
-
+class BuscaInscricaoForm(forms.Form):
+    #1 campo da tupla fica no banco de dados
+    #2 campo da tupla eh mostrado para o usuario
+    POSICAO = (
+        (None,'-------------'),
+        ('DIREITA', 'Direita'),
+        ('ESQUERDA', 'Esquerda' ),
+        ('AMBAS', 'Ambas' ),
+    )
+    atleta = forms.CharField(label='Digite dados do atleta', required=False)
+    posicao = forms.ChoiceField(label='Selecione a posição do atleta', choices=POSICAO, required=False)
+    
