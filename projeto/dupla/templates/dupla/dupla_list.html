@@ -7,10 +7,28 @@
 
 {% block content %}
 	<div class="panel panel-default">
-	  <div class="panel-body">
-	    <a href="{% url 'dupla_create' %}" class="btn btn-md btn-primary">{% bootstrap_icon 'floppy-disk' %} Montar Dupla</a>
-	  </div>
+		<div class="panel-body">
+		<form class="form">
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+					{% bootstrap_field form.atleta  %}
+				</div>	
+				{% comment %} <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+					{% bootstrap_field form.posicao  %}
+				</div>			   {% endcomment %}
+				<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+					<br>
+					<button type="submit" class="btn btn-success btn-lg"  style="width: 100%;">{% bootstrap_icon 'search' %} Buscar</button>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+					<br>
+					<a href="{% url 'dupla_create' %}" style="width: 100%;" class="btn btn-md btn-primary btn-lg">{% bootstrap_icon 'floppy-disk' %} Montar</a>
+				</div>
+			</div>
+		</form>
+		</div>
 	</div>
+	
 	<table class="table table-hover">
   		<thead>
 			<th>Etapa</th>

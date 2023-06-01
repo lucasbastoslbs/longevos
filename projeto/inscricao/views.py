@@ -84,8 +84,6 @@ class InscricaoCreateView(LoginRequiredMixin, TreinadorRequiredMixin, CreateView
                 return super().form_invalid(form)
             formulario.etapa.inscritos_esquerda += 1
 
-
-        print("ENTREI AQUI....")
         formulario.etapa.save()
         formulario.save()
         return super().form_valid(form)

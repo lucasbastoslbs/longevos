@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 
+from django.db.models import Q
 from django.contrib import messages
 
 from django.shortcuts import redirect
@@ -12,11 +13,44 @@ from django.urls import reverse
 from utils.decorators import LoginRequiredMixin,  TreinadorRequiredMixin
 
 from .models import Dupla
-from .forms import DuplaForm
+from .forms import DuplaForm, BuscaDuplaForm
 
 
 class DuplaListView(LoginRequiredMixin, ListView):
     model = Dupla
+    template_name = 'dupla/dupla_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.GET:
+            #quando ja tem dados filtrando
+            context['form'] = BuscaDuplaForm(data=self.request.GET)
+        else:
+            #quando acessa sem dados filtrando
+            context['form'] = BuscaDuplaForm()
+        return context
+
+    def get_queryset(self):
+        qs = Dupla.objects.all() #trouxe todas as inscrições
+        
+        if self.request.GET:
+            #quando ja tem dados filtrando
+            form = BuscaDuplaForm(data=self.request.GET)
+        else:
+            #quando acessa sem dados filtrando
+            form = BuscaDuplaForm()
+
+        if form.is_valid():
+            atleta = form.cleaned_data.get('atleta')
+            posicao = form.cleaned_data.get('posicao')
+
+            if atleta:
+                qs = qs.filter(Q(atleta_direita__atleta__nome__icontains=atleta) | Q(atleta_direita__atleta__apelido__icontains=atleta) | Q(atleta_esquerda__atleta__nome__icontains=atleta) | Q(atleta_esquerda__atleta__apelido__icontains=atleta))
+
+            if posicao:
+                qs = qs.filter(Q(atleta_direita__atleta__posicao__icontains=posicao) | Q(atleta_esquerda__atleta__posicao__icontains=posicao))
+            
+        return qs
  
 
 class DuplaCreateView(LoginRequiredMixin, TreinadorRequiredMixin, CreateView):
