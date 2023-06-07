@@ -2,7 +2,9 @@ from django import forms
 from django.db import models
 
 from dupla.models import Dupla
+from etapa.models import Etapa
 from inscricao.models import Inscricao
+
 
 
 class DuplaForm(forms.ModelForm):
@@ -24,4 +26,5 @@ class BuscaDuplaForm(forms.Form):
         ('AMBAS', 'Ambas' ),
     )
     atleta = forms.CharField(label='Digite dados do atleta', required=False)
+    etapa = forms.ModelChoiceField(label='Etapa', queryset=Etapa.etapas_ativas.all(), required=False)
     # posicao = forms.ChoiceField(label='Selecione a posição do atleta', choices=POSICAO, required=False)

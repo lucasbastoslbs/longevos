@@ -9,6 +9,7 @@ from etapa.models import Etapa
 class InscricaoForm(forms.ModelForm):
     etapa = forms.ModelChoiceField(label='Etapa', queryset=Etapa.etapas_ativas.all())
     atleta = forms.ModelChoiceField(label='Atleta', queryset=Usuario.atletas.all())
+   
 
     class Meta:
         model = Inscricao
@@ -26,4 +27,5 @@ class BuscaInscricaoForm(forms.Form):
     )
     atleta = forms.CharField(label='Digite dados do atleta', required=False)
     posicao = forms.ChoiceField(label='Selecione a posição do atleta', choices=POSICAO, required=False)
+    etapa = forms.ModelChoiceField(label='Etapa', queryset=Etapa.etapas_ativas.all(), required=False)
     
