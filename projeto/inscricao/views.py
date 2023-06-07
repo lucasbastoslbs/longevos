@@ -32,6 +32,7 @@ class InscricaoListView(LoginRequiredMixin,  ListView):
 
     def get_queryset(self):
         qs = Inscricao.objects.all() #trouxe todas as inscrições
+        qs = qs.filter(Q(etapa__is_active=True))
         
         if self.request.GET:
             #quando ja tem dados filtrando

@@ -13,17 +13,16 @@
 	</div>
 	<table class="table table-hover">
   		<thead>			
-			<th class="text-center">Etapa</th>
-  			<th class="text-center">Chave</th>			
+			<th class="text-center">Etapa</th>  			
+			<th class="text-center">Chave</th>  			
   			<th class="text-center">Excluir</th>
   		</thead>
 
   		<tbody>
   			{% for chave in object_list %}
 				<tr>
-					<td class="text-center">{{ chave.etapa }}</td>
-					<td class="text-center">{{ chave.nome }}</td>
-					
+					<td class="text-center"> {{ chave.etapa }}</td>
+					<td class="text-center"> {{ chave.nome }}</td>
 				    <td class="text-center">
 				          {% bootstrap_button content='' href=chave.get_delete_url button_type='link' icon='trash' button_class='btn btn-danger' size='sm' %}
 				    </td>

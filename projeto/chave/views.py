@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 from django.contrib import messages
+from django.db.models import Q
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect
 from django.urls import reverse
@@ -14,6 +15,8 @@ from dupla.models import Dupla
 from etapa.models import Etapa
 from utils.decorators import LoginRequiredMixin, TreinadorRequiredMixin
 
+
+from .forms import ChaveForm
 
 class ProcessamentoChaveDetailView(LoginRequiredMixin, TreinadorRequiredMixin, DetailView):
     model = Etapa
@@ -57,11 +60,17 @@ class ProcessamentoChaveDetailView(LoginRequiredMixin, TreinadorRequiredMixin, D
 class ChaveListView(LoginRequiredMixin, ListView):
     model = Chave
     success_url = 'chave_list'
+
+    def get_queryset(self):
+        qs = Chave.objects.all() #trouxe todas as chaves
+        qs = qs.filter(Q(etapa__is_active=True))
+        return qs
  
 
 class ChaveCreateView(LoginRequiredMixin, TreinadorRequiredMixin, CreateView):
     model = Chave
-    fields = ['nome','etapa']
+    form_class = ChaveForm
+    # fields = ['nome','etapa']
     success_url = 'chave_list'
     
     def get_success_url(self):
