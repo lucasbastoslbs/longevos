@@ -1,8 +1,15 @@
-from typing import Any
+from __future__ import unicode_literals
+from django.contrib import messages
 from django.http import HttpRequest, HttpResponse
-from django.views.generic import DetailView
+from django.shortcuts import redirect
+from django.urls import reverse
+from django.views.generic import DetailView, ListView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+
+from typing import Any
 
 from chave.models import Chave, ChaveDupla
+
 from dupla.models import Dupla
 from etapa.models import Etapa
 from utils.decorators import LoginRequiredMixin, TreinadorRequiredMixin
@@ -25,10 +32,10 @@ class ProcessamentoChaveDetailView(LoginRequiredMixin, TreinadorRequiredMixin, D
         return lista_letras
 
     def gerar_chaves(self, uma_etapa):
-        print("total de duplas na etapa: ",uma_etapa.total_duplas)
-        print("total de direitas na etapa: ",uma_etapa.inscritos_direita)
-        print("total de esquerdas na etapa: ",uma_etapa.inscritos_esquerda)
-        print("total de chaves na etapa: ",uma_etapa.total_chaves)
+        # print("total de duplas na etapa: ",uma_etapa.total_duplas)
+        # print("total de direitas na etapa: ",uma_etapa.inscritos_direita)
+        # print("total de esquerdas na etapa: ",uma_etapa.inscritos_esquerda)
+        # print("total de chaves na etapa: ",uma_etapa.total_chaves)
         
         lista_letras_chave = self.criar_lista_letras(uma_etapa.total_chaves)
         if  not Chave.objects.filter(etapa=uma_etapa).exists() and uma_etapa.inscritos_direita == uma_etapa.inscritos_esquerda and uma_etapa.total_duplas == uma_etapa.inscritos_direita:
@@ -41,7 +48,40 @@ class ProcessamentoChaveDetailView(LoginRequiredMixin, TreinadorRequiredMixin, D
                 else:
                     chave = Chave.objects.get(nome=lista_letras_chave[j])
                 
-                print(f"CHAVE....{chave.nome}: Dupla: {dupla.atleta_direita.atleta.nome} + {dupla.atleta_esquerda.atleta.nome}")
+                # print(f"CHAVE....{chave.nome}: Dupla: {dupla.atleta_direita.atleta.nome} + {dupla.atleta_esquerda.atleta.nome}")
                 
                 ChaveDupla.objects.create(chave=chave, dupla=dupla)
                 j += 1
+
+
+class ChaveListView(LoginRequiredMixin, ListView):
+    model = Chave
+    success_url = 'chave_list'
+ 
+
+class ChaveCreateView(LoginRequiredMixin, TreinadorRequiredMixin, CreateView):
+    model = Chave
+    fields = ['nome','etapa']
+    success_url = 'chave_list'
+    
+    def get_success_url(self):
+        messages.success(self.request, 'Chave cadastrada com sucesso na plataforma!')
+        return reverse(self.success_url)
+
+
+class ChaveDeleteView(LoginRequiredMixin, TreinadorRequiredMixin, DeleteView):
+    model = Chave
+    success_url = 'chave_list'
+
+    def delete(self, request, *args, **kwargs):
+        """
+        Call the delete() method on the fetched object and then redirect to the
+        success URL. If the object is protected, send an error message.
+        """
+        self.object = self.get_object()
+        
+        try:
+            self.object.delete()
+        except Exception as e:
+            messages.error(request, 'Há dependências ligadas à essa Chave, permissão negada!')
+        return redirect(self.success_url)

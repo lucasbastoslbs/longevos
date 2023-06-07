@@ -43,7 +43,11 @@ class InscricaoListView(LoginRequiredMixin,  ListView):
         if form.is_valid():
             atleta = form.cleaned_data.get('atleta')
             posicao = form.cleaned_data.get('posicao')
+            etapa = form.cleaned_data.get('etapa')
 
+            if etapa:
+                qs = qs.filter(Q(etapa=etapa))
+            
             if atleta:
                 qs = qs.filter(Q(atleta__nome__icontains=atleta) | Q(atleta__apelido__icontains=atleta))
 

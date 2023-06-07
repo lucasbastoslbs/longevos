@@ -19,8 +19,18 @@
         <li class=""><a href="{% url 'home' %}"> {% bootstrap_icon 'home' %} Home <span class="sr-only">(current)</span></a></li>
 
         <li class=""><a href="{% url 'usuario_list' %}">{% bootstrap_icon 'user' %} Longevos</a></li>
-        <li class=""><a href="{% url 'etapa_list' %}">{% bootstrap_icon 'tower' %} Gestão Etapas</a></li>
-        <li class=""><a href="{% url 'inscricao_list' %}">{% bootstrap_icon 'plus' %} Inscrições</a></li>
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{% bootstrap_icon 'tower' %} Gestão Etapas <span class="caret"></span></a>
+          <ul class="dropdown-menu">            
+            <li class=""><a href="{% url 'etapa_list' %}"> Etapas</a></li>
+            <li role="separator" class="divider"></li>
+            <li class=""><a href="{% url 'chave_list' %}"> Chaves em Etapas</a></li>
+            <li class=""><a href="{% url 'etapa_list' %}"> Duplas em Chaves</a></li>
+          </ul>
+        </li>
+        
+        <li class=""><a href="{% url 'inscricao_list' %}">{% bootstrap_icon 'plus' %} Inscrições</a></li>        
         <li class=""><a href="{% url 'dupla_list' %}">{% bootstrap_icon 'cog' %} Montar duplas</a></li>
       </ul>
       

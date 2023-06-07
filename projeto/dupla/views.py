@@ -42,7 +42,11 @@ class DuplaListView(LoginRequiredMixin, ListView):
 
         if form.is_valid():
             atleta = form.cleaned_data.get('atleta')
+            etapa = form.cleaned_data.get('etapa')
             # posicao = form.cleaned_data.get('posicao')
+
+            if etapa:
+                qs = qs.filter(Q(atleta_direita__etapa=etapa))
 
             if atleta:
                 qs = qs.filter(Q(atleta_direita__atleta__nome__icontains=atleta) | Q(atleta_direita__atleta__apelido__icontains=atleta) | Q(atleta_esquerda__atleta__nome__icontains=atleta) | Q(atleta_esquerda__atleta__apelido__icontains=atleta))

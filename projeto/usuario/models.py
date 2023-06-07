@@ -76,7 +76,7 @@ class Usuario(AbstractBaseUser):
     
 
     class Meta:
-        ordering            =   ['tipo','grupo', '-pontuacao', '-qtd_etapas_jogadas', 'apelido']
+        ordering            =   ['-is_active','tipo','grupo', '-pontuacao', '-qtd_etapas_jogadas', 'apelido']
         verbose_name        =   ('longevo')
         verbose_name_plural =   ('longevos')
 

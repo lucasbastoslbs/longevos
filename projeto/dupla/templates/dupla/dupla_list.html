@@ -10,12 +10,13 @@
 		<div class="panel-body">
 		<form class="form">
 			<div class="row">
-				<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+				<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+					{% bootstrap_field form.etapa  %}
+				</div>	
+				<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
 					{% bootstrap_field form.atleta  %}
 				</div>	
-				{% comment %} <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-					{% bootstrap_field form.posicao  %}
-				</div>			   {% endcomment %}
+				
 				<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
 					<br>
 					<button type="submit" class="btn btn-success btn-lg"  style="width: 100%;">{% bootstrap_icon 'search' %} Buscar</button>
