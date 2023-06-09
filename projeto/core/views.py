@@ -6,9 +6,16 @@ from django.views.generic import RedirectView
 
 from utils.decorators import LoginRequiredMixin, StaffRequiredMixin
 
+# class HomeRedirectView(LoginRequiredMixin, RedirectView):
+#     def get_redirect_url(self, **kwargs):
+#         return reverse('home')
+
 class HomeRedirectView(LoginRequiredMixin, RedirectView):
     def get_redirect_url(self, **kwargs):
-        return reverse('home')
+        if self.request.user.tipo == 'ADMINISTRADOR' or self.request.user.tipo == 'TREINADOR':
+            return reverse('home')
+        elif self.request.user.tipo == 'ATLETA':
+            return reverse('appatleta_home')   
         
 
 class HomeView(LoginRequiredMixin, TemplateView):

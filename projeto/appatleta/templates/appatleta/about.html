@@ -1,0 +1,18 @@
+{% extends 'appaluno/base.html' %}
+{% load bootstrap3 %}
+{% load static %}
+
+{% block title %}
+	{% bootstrap_icon 'question-sign' %} Sobre
+{% endblock %}
+
+
+{% block content %}
+	<center>
+	<!-- <img src="{% static 'core/img/logoLasimon.png' %}"
+         class="img-responsive"> -->
+    </center>
+
+	{% include 'core/textoAbout.html' %}
+	
+{% endblock %}
