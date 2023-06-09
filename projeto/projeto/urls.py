@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'inscricao/', include('inscricao.urls')),
     url(r'dupla/', include('dupla.urls')),
     url(r'chave/', include('chave.urls')),
+    url(r'appatleta/', include('appatleta.urls')),
    
     url(r'^accounts/', include('django.contrib.auth.urls')),
 ]

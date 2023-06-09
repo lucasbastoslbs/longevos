@@ -5,7 +5,7 @@ from core.views import HomeRedirectView
 
 from .views import (DadosAtletaUpdateView, 
                     InscricaoListView, InscricaoCreateView, 
-                    InscricaoUpdateView, HomeView, AboutView)
+                    HomeView, AboutView)
 
 urlpatterns = [
    url(r'^home$', HomeView.as_view(), name='appatleta_home'), 
@@ -16,5 +16,5 @@ urlpatterns = [
 
    url(r'^minhas-inscricoes$', InscricaoListView.as_view(), name='appatleta_inscricao_list'),
    url(r'^minhas-inscricoes/cad/$', InscricaoCreateView.as_view(), name='appatleta_inscricao_create'),
-   url(r'^minhas-inscricoes/(?P<pk>\d+)/$', InscricaoUpdateView.as_view(), name='appatleta_inscricao_update'),   
+   
 ]
