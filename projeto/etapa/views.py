@@ -14,7 +14,7 @@ from utils.decorators import LoginRequiredMixin, StaffRequiredMixin, TreinadorRe
 from .models import Etapa
 
 
-class EtapaListView(LoginRequiredMixin, ListView):
+class EtapaListView(LoginRequiredMixin, TreinadorRequiredMixin, ListView):
     model = Etapa
  
 

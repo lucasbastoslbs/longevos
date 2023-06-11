@@ -4,7 +4,7 @@ from django.conf.urls import url
 from core.views import HomeRedirectView
 
 from .views import (DadosAtletaUpdateView, 
-                    InscricaoListView, InscricaoCreateView, 
+                    InscricaoListView, InscricaoCreateView, InscricaoDeleteView,
                     HomeView, AboutView)
 
 urlpatterns = [
@@ -16,5 +16,6 @@ urlpatterns = [
 
    url(r'^minhas-inscricoes$', InscricaoListView.as_view(), name='appatleta_inscricao_list'),
    url(r'^minhas-inscricoes/cad/$', InscricaoCreateView.as_view(), name='appatleta_inscricao_create'),
+   url(r'(?P<pk>\d+)/delete/$', InscricaoDeleteView.as_view(), name='appatleta_inscricao_delete'), 
    
 ]

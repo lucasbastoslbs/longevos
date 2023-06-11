@@ -13,7 +13,7 @@ from .models import Usuario
 from .forms import BuscaUsuarioForm
 
 
-class UsuarioListView(LoginRequiredMixin, ListView):
+class UsuarioListView(LoginRequiredMixin, TreinadorRequiredMixin, ListView):
     model = Usuario
     template_name = 'usuario/usuario_list.html'
 

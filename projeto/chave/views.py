@@ -57,7 +57,7 @@ class ProcessamentoChaveDetailView(LoginRequiredMixin, TreinadorRequiredMixin, D
                 j += 1
 
 
-class ChaveListView(LoginRequiredMixin, ListView):
+class ChaveListView(LoginRequiredMixin, TreinadorRequiredMixin, ListView):
     model = Chave
     success_url = 'chave_list'
 

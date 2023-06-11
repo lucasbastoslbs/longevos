@@ -16,7 +16,7 @@ from .models import Dupla
 from .forms import DuplaForm, BuscaDuplaForm
 
 
-class DuplaListView(LoginRequiredMixin, ListView):
+class DuplaListView(LoginRequiredMixin, TreinadorRequiredMixin, ListView):
     model = Dupla
     template_name = 'dupla/dupla_list.html'
 

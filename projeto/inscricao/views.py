@@ -15,7 +15,7 @@ from .models import Inscricao
 from .forms import InscricaoForm, BuscaInscricaoForm
 
 
-class InscricaoListView(LoginRequiredMixin,  ListView):
+class InscricaoListView(LoginRequiredMixin,  TreinadorRequiredMixin, ListView):
     model = Inscricao
 
     template_name = 'inscricao/inscricao_list.html'

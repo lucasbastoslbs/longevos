@@ -65,4 +65,11 @@ class Inscricao(models.Model):
     def get_delete_url(self):
         return reverse('inscricao_delete', args=[str(self.id)]) 
     
+    # appatleta
+    @property
+    def get_appatleta_delete_url(self):
+        return reverse('appatleta_inscricao_delete', args=[str(self.id)])
+    
+    
+    
     

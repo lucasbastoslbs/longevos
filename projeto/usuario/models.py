@@ -58,8 +58,8 @@ class Usuario(AbstractBaseUser):
     grupo = models.CharField('Turma Longeva', max_length=5, choices=GRUPO, null=True, blank=False)
     nome = models.CharField('Nome completo *', max_length=100)
     apelido = models.CharField('Apelido', max_length=50, null = True, blank= False, help_text='Se não tem apelido, colocar o primeiro nome')
-    data_nascimento = models.DateField('Data nascimento *', null = True, blank = True, help_text="Use dd/mm/aaaa")
-    email = models.EmailField('Email ', max_length=100, null = True, blank = True, help_text="O email é fundamental para recuperar senha")
+    data_nascimento = models.DateField('Data nascimento *', null = True, blank = False, help_text="Use dd/mm/aaaa")
+    email = models.EmailField('Email ', max_length=100, null = True, blank = False, help_text="O email é fundamental para recuperar senha")
     celular = models.CharField('Número celular com DDD', unique=True, max_length=11, db_index=True, help_text="Use DDD, por exemplo 55987619832")
     
     posicao = models.CharField('Posição na quadra *', max_length=8, choices=POSICAO)
