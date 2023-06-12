@@ -31,7 +31,8 @@ class Etapa(models.Model):
     total_chaves = models.IntegerField('Total de chaves', null=True, blank=True, default=0)    
     inscritos_direita = models.IntegerField('Total de direitas inscritos', null=True, blank=True, default=0)
     inscritos_esquerda = models.IntegerField('Total de esquerdas inscritos', null=True, blank=True, default=0)
-    is_active = models.BooleanField(_('Ativo'), default=True, help_text='Se ativo, o curso pode ser usado no sistema')
+    inscricoes_abertas = models.BooleanField('Etapa com inscrições abertas', default=True, help_text='Desmarque o campo para encerrar as inscrições.')
+    is_active = models.BooleanField('Ativo', default=True, help_text='Se ativo, o curso pode ser usado no sistema')
     slug = models.SlugField('Hash',max_length= 200,null=True,blank=True)
 
     objects = models.Manager()

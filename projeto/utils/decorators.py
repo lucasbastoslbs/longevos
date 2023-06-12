@@ -23,7 +23,7 @@ class StaffRequiredMixin(object):
                 request,
                 'Você não tem permissão para acessar esta área ou'
                 ' realizar esta operação.')
-            return redirect('home')
+            return redirect('home_redirect')
         return super(StaffRequiredMixin, self).dispatch(request, *args, **kwargs)
     
     
@@ -39,7 +39,7 @@ class TreinadorRequiredMixin(object):
                 request,
                 'Você não tem permissão para acessar esta área ou'
                 ' realizar esta operação.')
-            return redirect('home')
+            return redirect('home_redirect')
         return super(TreinadorRequiredMixin, self).dispatch(request, *args, **kwargs)
 
 
@@ -56,6 +56,6 @@ class AtletaRequiredMixin(object):
                 request,
                 'Você não tem permissão para acessar esta área ou'
                 ' realizar esta operação.')
-            return redirect('home')
+            return redirect('home_redirect')
         return super(AtletaRequiredMixin, self).dispatch(request, *args, **kwargs)
 
