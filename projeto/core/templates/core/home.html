@@ -3,14 +3,25 @@
 {% load static %}
 
 {% block title %}
-      <img src="{% static 'core/img/logoLongevos.jpeg' %}"
-      class="img-responsive" style="max-width: 120px;"> 
+      <div class="panel panel-default">
+            <div class="panel-body">      
+                  <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+                              <img src="{% static 'core/img/logoLongevos.jpeg' %}" class="img-responsive" style="max-width: 100px;">
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7" >
+                              <br>
+                              {% bootstrap_icon 'info-sign' %} Avisos
+                        </div>                        				                    
+                  </div>
+            </div>
+      </div>
 {% endblock %}
 
 {% block content %}
 
-{% if user.is_authenticated %}
-     
-{% endif %}
+      {% if user.is_authenticated %}
+      
+      {% endif %}
 
 {% endblock %}
