@@ -7,7 +7,7 @@ from etapa.models import Etapa
 
 
 class InscricaoForm(forms.ModelForm):
-    etapa = forms.ModelChoiceField(label='Etapa', queryset=Etapa.etapas_ativas.all())
+    etapa = forms.ModelChoiceField(label='Etapa', queryset=Etapa.etapas_inscricao_aberta_ativas.all())
     atleta = forms.ModelChoiceField(label='Atleta', queryset=Usuario.atletas.all())
    
 

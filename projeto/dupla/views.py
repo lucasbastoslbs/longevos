@@ -51,9 +51,6 @@ class DuplaListView(LoginRequiredMixin, TreinadorRequiredMixin, ListView):
             if atleta:
                 qs = qs.filter(Q(atleta_direita__atleta__nome__icontains=atleta) | Q(atleta_direita__atleta__apelido__icontains=atleta) | Q(atleta_esquerda__atleta__nome__icontains=atleta) | Q(atleta_esquerda__atleta__apelido__icontains=atleta))
 
-            # if posicao:
-            #     qs = qs.filter(Q(atleta_direita__atleta__posicao__icontains=posicao) | Q(atleta_esquerda__atleta__posicao__icontains=posicao))
-            
         return qs
  
 
@@ -89,13 +86,15 @@ class DuplaDeleteView(LoginRequiredMixin, TreinadorRequiredMixin, DeleteView):
         success URL. If the object is protected, send an error message.
         """
         self.object = self.get_object()
-        success_url = self.get_success_url()
+        direita = self.object.atleta_direita
+        esquerda = self.object.atleta_esquerda
         try:
-            self.object.atleta_direita.com_dupla = False
-            self.object.atleta_esquerda.com_dupla = False
-            self.object.atleta_direita.save()
-            self.object.atleta_esquerda.save()
             self.object.delete()
+            
+            direita.com_dupla = False
+            esquerda.com_dupla = False
+            direita.save()
+            esquerda.save()
         except Exception as e:
             messages.error(request, 'Há dependências ligadas à essa Dupla, permissão negada!')
         return redirect(self.success_url)

@@ -13,6 +13,11 @@ class EtapaAtivoManager(models.Manager):
         return super().get_queryset().filter(is_active=True)
 
 
+class EtapaInscricaoAbertaAtivoManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(inscricoes_abertas=True, is_active=True)
+
+
 class Etapa(models.Model):
     #1 campo da tupla fica no banco de dados
     #2 campo da tupla eh mostrado para o usuario
@@ -32,11 +37,12 @@ class Etapa(models.Model):
     inscritos_direita = models.IntegerField('Total de direitas inscritos', null=True, blank=True, default=0)
     inscritos_esquerda = models.IntegerField('Total de esquerdas inscritos', null=True, blank=True, default=0)
     inscricoes_abertas = models.BooleanField('Etapa com inscrições abertas', default=True, help_text='Desmarque o campo para encerrar as inscrições.')
-    is_active = models.BooleanField('Ativo', default=True, help_text='Se ativo, o curso pode ser usado no sistema')
+    is_active = models.BooleanField('Ativo', default=True, help_text='Se ativo, a etapa pode ter inscrições')
     slug = models.SlugField('Hash',max_length= 200,null=True,blank=True)
 
     objects = models.Manager()
     etapas_ativas = EtapaAtivoManager()
+    etapas_inscricao_aberta_ativas = EtapaInscricaoAbertaAtivoManager()
 
     
     class Meta:

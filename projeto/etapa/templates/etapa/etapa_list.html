@@ -15,7 +15,7 @@
   		<thead>
 			<th>Local</th>
 			<th class="text-center">Grupo/Turma</th>
-  			<th>Data</th>
+  			<th class="text-center"> Data</th>
 			<th class="text-center">Total duplas</th>
 			<th class="text-center">Total chaves</th>
 			<th class="text-center">Quantidade direitas</th>
@@ -32,16 +32,16 @@
 				<tr>
 					<td>{{ etapa.local }}</td>
 					<td class="text-center">{{ etapa.grupo }}</td>
-					<td>{{ etapa.data|date:'d/m/Y' }}</td>
+					<td class="text-center">{{ etapa.data|date:'d/m/Y' }}</td>
 					<td class="text-center">{{ etapa.total_duplas }}</td>
 					<td class="text-center">{{ etapa.total_chaves }}</td>
 					<td class="text-center">{{ etapa.inscritos_direita }}</td>
 					<td class="text-center">{{ etapa.inscritos_esquerda }}</td>
 					<td class="text-center">
 						{% if etapa.inscricoes_abertas %}
-							Sim
+							SIM
 						{% else %}
-							Não
+							NÃO
 						{% endif %}
 					</td>
 					<td class="text-center">

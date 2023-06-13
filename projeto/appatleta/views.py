@@ -120,16 +120,19 @@ class InscricaoDeleteView(LoginRequiredMixin, AtletaRequiredMixin, DeleteView):
         success URL. If the object is protected, send an error message.
         """
         self.object = self.get_object()
+        etapa_atual = self.object.etapa
+        posicao = self.object.posicao_etapa
         
         try:
-            if (self.object.posicao_etapa == "DIREITA"):
-                self.object.etapa.inscritos_direita -= 1
-            
-            if (self.object.posicao_etapa == "ESQUERDA"):
-                self.object.etapa.inscritos_esquerda -= 1
-            
-            self.object.etapa.save()
             self.object.delete()
+            
+            if (posicao == "DIREITA"):
+                etapa_atual.inscritos_direita -= 1
+            
+            if (posicao == "ESQUERDA"):
+                etapa_atual.inscritos_esquerda -= 1
+            
+            etapa_atual.save()
             
         except Exception as e:
             messages.error(request, 'Já não é mais possível cancelar a inscrição, permissão negada!')
