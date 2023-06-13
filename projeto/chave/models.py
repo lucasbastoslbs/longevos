@@ -33,9 +33,12 @@ class ChaveDupla(models.Model):
     
     class Meta:
         ordering = ['chave']      
+        unique_together = [['dupla']]
     
-    # def __str__(self):
-    #     return 'Chave: %s: Dupla %s.' % (self.chave, self.dupla)
 
     def save(self, *args, **kwargs):
         super(ChaveDupla, self).save(*args, **kwargs)
+        
+    @property
+    def get_dupla_em_chave_delete_url(self):
+        return reverse('chavedupla_delete', args=[str(self.id)])

@@ -94,3 +94,41 @@ class ChaveDeleteView(LoginRequiredMixin, TreinadorRequiredMixin, DeleteView):
         except Exception as e:
             messages.error(request, 'Há dependências ligadas à essa Chave, permissão negada!')
         return redirect(self.success_url)
+    
+    
+class ChaveDuplaListView(LoginRequiredMixin, TreinadorRequiredMixin, ListView):
+    model = ChaveDupla
+    success_url = 'chavedupla_list'
+
+    def get_queryset(self):
+        qs = ChaveDupla.objects.all() #trouxe todas as chaves
+        qs = qs.filter(Q(chave__etapa__is_active=True))
+        return qs
+ 
+
+class ChaveDuplaCreateView(LoginRequiredMixin, TreinadorRequiredMixin, CreateView):
+    model = ChaveDupla
+    fields = ['chave','dupla']
+    success_url = 'chavedupla_list'
+    
+    def get_success_url(self):
+        messages.success(self.request, 'Dupla associada à Chave com sucesso na plataforma!')
+        return reverse(self.success_url)
+
+
+class ChaveDuplaDeleteView(LoginRequiredMixin, TreinadorRequiredMixin, DeleteView):
+    model = ChaveDupla
+    success_url = 'chavedupla_list'
+
+    def delete(self, request, *args, **kwargs):
+        """
+        Call the delete() method on the fetched object and then redirect to the
+        success URL. If the object is protected, send an error message.
+        """
+        self.object = self.get_object()
+        
+        try:
+            self.object.delete()
+        except Exception as e:
+            messages.error(request, 'Há dependências ligadas à essa Dupla na Chave, permissão negada!')
+        return redirect(self.success_url)
