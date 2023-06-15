@@ -72,8 +72,8 @@ class InscricaoCreateView(LoginRequiredMixin, AtletaRequiredMixin, CreateView):
     def form_valid(self, form):
         try:
             formulario = form.save(commit=False)
-            formulario.atleta = Usuario.objects.get(id=self.request.GET.get('usuario_id'))
-
+            formulario.atleta = self.request.user
+            
             if ((formulario.etapa.total_duplas * 2) - (formulario.etapa.inscritos_direita + formulario.etapa.inscritos_esquerda) == 0):
                 messages.error(self.request,"Não há mais vagas para nenhuma posição. Inscrição NÃO realizada. Aguarde liberar uma vaga!!!")  
                 return super().form_invalid(form)
