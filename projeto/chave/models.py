@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 
+from dupla.models import Dupla
 
 class Chave(models.Model):
     nome = models.CharField('Nome', max_length=1, help_text="A ou B ou C ou D ou ...")
@@ -27,10 +28,19 @@ class Chave(models.Model):
     def get_delete_url(self):
         return reverse('chave_delete', args=[str(self.id)])
 
+
+class ChaveDupla_DuplaSemChaveManager(models.Manager):
+    def get_queryset(self):      
+        return Dupla.objects.exclude(chavedupla__in=ChaveDupla.objects.all())
+
+
 class ChaveDupla(models.Model):
     chave = models.ForeignKey('chave.Chave', on_delete=models.PROTECT)
     dupla = models.ForeignKey('dupla.Dupla', on_delete=models.PROTECT)
     
+    objects = models.Manager()
+    duplas_sem_chave = ChaveDupla_DuplaSemChaveManager()
+
     class Meta:
         ordering = ['chave']      
         unique_together = [['dupla']]

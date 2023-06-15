@@ -25,7 +25,7 @@ class Dupla(models.Model):
         verbose_name_plural =   'duplas'
 
     def __str__(self):
-        return 'Direita: %s. Esquerda: %s' % (self.atleta_direita, self.atleta_esquerda)
+        return 'Direita: %s. Esquerda: %s' % (self.atleta_direita.atleta.apelido, self.atleta_esquerda.atleta.apelido)
 
     def save(self, *args, **kwargs):
         if not self.slug:

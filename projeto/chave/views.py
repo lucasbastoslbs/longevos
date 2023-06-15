@@ -16,7 +16,7 @@ from etapa.models import Etapa
 from utils.decorators import LoginRequiredMixin, TreinadorRequiredMixin
 
 
-from .forms import ChaveForm
+from .forms import ChaveForm, ChaveDuplaForm
 
 class ProcessamentoChaveDetailView(LoginRequiredMixin, TreinadorRequiredMixin, DetailView):
     model = Etapa
@@ -108,7 +108,8 @@ class ChaveDuplaListView(LoginRequiredMixin, TreinadorRequiredMixin, ListView):
 
 class ChaveDuplaCreateView(LoginRequiredMixin, TreinadorRequiredMixin, CreateView):
     model = ChaveDupla
-    fields = ['chave','dupla']
+    # fields = ['chave','dupla']
+    form_class = ChaveDuplaForm
     success_url = 'chavedupla_list'
     
     def get_success_url(self):
