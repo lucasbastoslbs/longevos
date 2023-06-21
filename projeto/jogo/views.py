@@ -12,17 +12,53 @@ from jogo.models import Jogo
 
 from utils.decorators import LoginRequiredMixin, TreinadorRequiredMixin
 
-from .forms import JogoForm
+from .forms import JogoForm, BuscaJogoForm
 
 
 class JogoListView(LoginRequiredMixin, TreinadorRequiredMixin, ListView):
     model = Jogo
     success_url = 'jogo_list'
 
-    def get_queryset(self):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.GET:
+            #quando ja tem dados filtrando
+            context['form'] = BuscaJogoForm(data=self.request.GET)
+        else:
+            #quando acessa sem dados filtrando
+            context['form'] = BuscaJogoForm()
+        return context
+
+    def get_queryset(self):        
         qs = Jogo.objects.all() #trouxe todas as etapas
         qs = qs.filter(Q(chave__etapa__is_active=True))
+        
+        if self.request.GET:
+            #quando ja tem dados filtrando
+            form = BuscaJogoForm(data=self.request.GET)
+        else:
+            #quando acessa sem dados filtrando
+            form = BuscaJogoForm()
+
+        if form.is_valid():
+            etapa = form.cleaned_data.get('etapa')
+            fase = form.cleaned_data.get('fase')
+            atleta = form.cleaned_data.get('atleta')
+
+            if etapa:
+                qs = qs.filter(Q(chave__etapa=etapa))
+            
+            if atleta:
+                qs = qs.filter(Q(timeA__dupla__atleta_direita__atleta__nome__icontains=atleta) | Q(timeA__dupla__atleta_direita__atleta__apelido__icontains=atleta)| 
+                               Q(timeA__dupla__atleta_esquerda__atleta__nome__icontains=atleta) | Q(timeA__dupla__atleta_esquerda__atleta__apelido__icontains=atleta)|
+                               Q(timeB__dupla__atleta_direita__atleta__nome__icontains=atleta) | Q(timeB__dupla__atleta_direita__atleta__apelido__icontains=atleta)| 
+                               Q(timeB__dupla__atleta_esquerda__atleta__nome__icontains=atleta) | Q(timeB__dupla__atleta_esquerda__atleta__apelido__icontains=atleta))
+
+            if fase:
+                qs = qs.filter(Q(fase=fase))
+            
         return qs
+
  
 
 class JogoCreateView(LoginRequiredMixin, TreinadorRequiredMixin, CreateView):
