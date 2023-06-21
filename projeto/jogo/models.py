@@ -21,8 +21,8 @@ class Jogo(models.Model):
     
     fase = models.CharField('Fase da etapa *', max_length=15, choices=FASE,  help_text='* Campos obrigatórios')
     chave = models.ForeignKey('chave.Chave', null=True, blank=True, on_delete=models.PROTECT)
-    timeA_chave_dupla = models.ForeignKey('chave.ChaveDupla', on_delete=models.PROTECT, related_name='timeA_chave_dupla')
-    timeB_chave_dupla = models.ForeignKey('chave.ChaveDupla', on_delete=models.PROTECT, related_name='timeB_chave_dupla')
+    timeA = models.ForeignKey('chave.ChaveDupla', on_delete=models.PROTECT, related_name='timeA_chave_dupla')
+    timeB = models.ForeignKey('chave.ChaveDupla', on_delete=models.PROTECT, related_name='timeB_chave_dupla')
 
     placar_timeA_set1 = models.DecimalField('Games vencidos Time A (1o set)',max_digits=2, decimal_places=0, null=True, blank=True, default= 0)
     placar_timeB_set1 = models.DecimalField('Games vencidos Time B (1o set)',max_digits=2, decimal_places=0, null=True, blank=True, default= 0)
@@ -40,9 +40,12 @@ class Jogo(models.Model):
     
     class Meta:
         ordering = ['chave']
-        unique_together     =   [['fase', 'timeA_chave_dupla', 'timeB_chave_dupla']]
+        unique_together     =   [['fase', 'timeA', 'timeB']]
         verbose_name        =   ('jogo')
         verbose_name_plural =   ('jogos')
+
+    def __str__(self):
+        return "Fase: %s. TimeA: %s versus TimeB: %s." % (self.fase, self.timeA, self.timeB)
 
 
     def save(self, *args, **kwargs):

@@ -29,19 +29,25 @@
 					<td class="text-center"> {{ jogo.fase }}</td>
 					
 					<td class="text-center"> 
-						{{ jogo.timeA_chave_dupla }}<br>
+						{{ jogo.timeA }}<br>
 						<small>
 							Primeiro Set: {{ jogo.placar_timeA_set1 }} <br>
-							Segundo  Set: {{ jogo.placar_timeA_set2 }} <br>
-							Terceiro Set: {{ jogo.placar_timeA_set3 }} 
+							{% if jogo.placar_timeA_set2 != jogo.placar_timeB_set2%}
+								Segundo  Set: {{ jogo.placar_timeA_set2 }} <br>
+							{% elif jogo.placar_timeA_set3 != jogo.placar_timeB_set3%}
+								Terceiro Set: {{ jogo.placar_timeA_set3 }} 
+							{% endif %}
 						</small>
 					</td>
 					<td class="text-center"> 
-						{{ jogo.timeB_chave_dupla }} <br>
+						{{ jogo.timeB }} <br>
 						<small>
 							Primeiro Set: {{ jogo.placar_timeB_set1 }} <br>
-							Segundo  Set: {{ jogo.placar_timeB_set2 }} <br>
-							Terceiro Set: {{ jogo.placar_timeB_set3 }} 
+							{% if jogo.placar_timeA_set2 != jogo.placar_timeB_set2%}
+								Segundo  Set: {{ jogo.placar_timeB_set2 }} <br>
+							{% elif jogo.placar_timeA_set3 != jogo.placar_timeB_set3%}
+								Terceiro Set: {{ jogo.placar_timeB_set3 }} 
+							{% endif %}
 						</small>
 					</td>
 					
@@ -51,7 +57,7 @@
 						{% endif %}
 					</td>					
 					<td class="text-center">
-						{% bootstrap_button content='' href=jogo.get_absolute_url button_type='link' icon='edit' button_class='btn btn-info' size='sm' %}
+						{% bootstrap_button content='' href=jogo.get_absolute_url button_type='link' icon='edit' button_class='btn btn-primary' size='sm' %}
 				  	</td>
 				    <td class="text-center">
 				          {% bootstrap_button content='' href=jogo.get_delete_url button_type='link' icon='trash' button_class='btn btn-danger' size='sm' %}
