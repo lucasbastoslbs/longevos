@@ -46,6 +46,9 @@ class ChaveDupla(models.Model):
         unique_together = [['dupla']]
     
 
+    def __str__(self):
+        return '%s: %s' % (self.chave.nome, self.dupla)
+
     def save(self, *args, **kwargs):
         super(ChaveDupla, self).save(*args, **kwargs)
         
