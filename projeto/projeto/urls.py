@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'chave/', include('chave.urls')),
     url(r'appatleta/', include('appatleta.urls')),
     url(r'foto/', include('foto.urls')),
+    url(r'jogo/', include('jogo.urls')),
    
     url(r'^accounts/', include('django.contrib.auth.urls')),
 ]

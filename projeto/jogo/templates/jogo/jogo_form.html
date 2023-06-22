@@ -1,0 +1,84 @@
+{% extends 'core/base.html' %}
+{% load bootstrap3 %}
+
+{% block actions %}
+{% endblock %}
+
+{% block title %}
+	{% bootstrap_icon 'play' %} Registro de Jogo
+{% endblock %}
+
+{% block content %}
+<form class="form" role="form" method="POST">
+    {% csrf_token %}
+    
+    {% for error in form.non_field_errors %}
+      {% bootstrap_alert error 'danger' %}
+    {% endfor %}
+
+    <div class="table-responsive">
+      
+      <table class="table table-hover">        
+        <tr>
+          <td>
+            {% bootstrap_field form.fase %}
+          </td>
+          <td>
+            {% bootstrap_field form.chave %}
+          </td>          
+        </tr>
+        <tr>        
+          <td>
+            {% bootstrap_field form.timeA %}
+          </td>        
+          <td>
+            {% bootstrap_field form.timeB %}
+          </td>
+        </tr> 
+        {% if object %}
+          <tr>
+            <td>
+              {% bootstrap_field form.placar_timeA_set1 %}
+            </td> 
+            <td>
+              {% bootstrap_field form.placar_timeB_set1 %}
+            </td> 
+          </tr>
+          <tr>
+            <td>
+              {% bootstrap_field form.placar_timeA_set2 %}
+            </td> 
+            <td>
+              {% bootstrap_field form.placar_timeB_set2 %}
+            </td> 
+          </tr>
+          <tr>
+            <td>
+              {% bootstrap_field form.placar_timeA_set3 %}
+            </td> 
+            <td>
+              {% bootstrap_field form.placar_timeB_set3 %}
+            </td> 
+          </tr>
+          <tr>
+            <td>
+              {% bootstrap_field form.vencedor %}
+            </td>
+          </tr>
+        {% endif %}       
+      </table>
+    </div>
+    
+    
+    
+    
+    
+    
+
+    
+
+    {% buttons submit='Gravar' %}
+       <a href="javascript:history.go(-1);" class="btn btn-info" role="button">Voltar</a>
+    {% endbuttons %}
+</form>
+{% endblock %}
