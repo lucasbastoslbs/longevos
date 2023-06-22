@@ -4,4 +4,4 @@ venv
 .env
 .vscode
 .idea
-projeto/uploads/midias/
+#projeto/uploads/midias/
