@@ -19,10 +19,10 @@ class Jogo(models.Model):
         ('FINAL', 'Final' ),
     )    
     
-    fase = models.CharField('Fase da etapa *', max_length=15, choices=FASE,  help_text='* Campos obrigatórios')
+    fase = models.CharField('Fase da etapa *', max_length=15, choices=FASE,  null=True, blank=True, help_text='* Campos obrigatórios')
     chave = models.ForeignKey('chave.Chave', null=True, blank=True, on_delete=models.PROTECT)
-    timeA = models.ForeignKey('chave.ChaveDupla', on_delete=models.PROTECT, related_name='timeA_chave_dupla')
-    timeB = models.ForeignKey('chave.ChaveDupla', on_delete=models.PROTECT, related_name='timeB_chave_dupla')
+    timeA = models.ForeignKey('chave.ChaveDupla', null=True, blank=True, on_delete=models.PROTECT, related_name='timeA_chave_dupla')
+    timeB = models.ForeignKey('chave.ChaveDupla',null=True, blank=True, on_delete=models.PROTECT, related_name='timeB_chave_dupla')
 
     placar_timeA_set1 = models.DecimalField('Games vencidos Time A (1o set)',max_digits=2, decimal_places=0, null=True, blank=True, default= 0)
     placar_timeB_set1 = models.DecimalField('Games vencidos Time B (1o set)',max_digits=2, decimal_places=0, null=True, blank=True, default= 0)
