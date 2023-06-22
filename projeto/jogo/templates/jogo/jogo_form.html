@@ -17,30 +17,24 @@
     {% endfor %}
 
     <div class="table-responsive">
-      <table class="table table-hover">
-        {% if not object %}
-          <tr>
-            <td>
-              {% bootstrap_field form.fase %}
-            </td>
-            <td>
-              {% bootstrap_field form.chave %}
-            </td>          
-          </tr>
-          <tr>        
-            <td>
-              {% bootstrap_field form.timeA %}
-            </td>        
-            <td>
-              {% bootstrap_field form.timeB %}
-            </td>
-          </tr> 
-        {% else %}
-          <hr>
-          <p>
-            {{ object.timeA }} <b>VERSUS</b> {{ object.timeB }}
-          </p>
-        {% endif %}
+      
+      <table class="table table-hover">        
+        <tr>
+          <td>
+            {% bootstrap_field form.fase %}
+          </td>
+          <td>
+            {% bootstrap_field form.chave %}
+          </td>          
+        </tr>
+        <tr>        
+          <td>
+            {% bootstrap_field form.timeA %}
+          </td>        
+          <td>
+            {% bootstrap_field form.timeB %}
+          </td>
+        </tr> 
         {% if object %}
           <tr>
             <td>
