@@ -7,12 +7,12 @@ from jogo.models import Jogo
 
 
 class JogoForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super(JogoForm, self).__init__(*args, **kwargs)                      
-        self.fields['fase'].disabled = True
-        self.fields['chave'].disabled = True
-        self.fields['timeA'].disabled = True
-        self.fields['timeB'].disabled = True 
+    # def __init__(self, *args, **kwargs):
+    #     super(JogoForm, self).__init__(*args, **kwargs)                      
+    #     self.fields['fase'].disabled = True
+    #     self.fields['chave'].disabled = True
+    #     self.fields['timeA'].disabled = True
+    #     self.fields['timeB'].disabled = True 
 
     class Meta:
         model = Jogo
