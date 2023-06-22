@@ -24,7 +24,7 @@ class Foto(models.Model):
     fotos_ativas = FotoAtivoManager()
     
     class Meta:
-        ordering            =   ['data_publicacao','titulo']
+        ordering            =   ['-data_publicacao','titulo']
         verbose_name        =   ('foto')
         verbose_name_plural =   ('fotos')
 
