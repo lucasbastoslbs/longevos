@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'inscricao',
     'dupla',
     'chave',
+    'foto',
 ]
 
 MIDDLEWARE = [
@@ -123,10 +124,35 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'projeto/static/')
+
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+SESSION_COOKIE_AGE = 60*60*24
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_SAVE_EVERY_REQUEST = True
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")
+MEDIA_URL = '/media/'
+
+DOMINIO_URL='localhost:8000'
+
+#DATABASE_URL=mysql://residencia:residencia2022@127.0.0.1:3306/residencia_db
+#DOMINIO_URL='https://longevos.lapinf.ufn.edu.br'
+
+EMAIL_ADMINISTRACAO='alexandre.o.zamberlan@gmail.com'
+EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_PORT = '587'
+EMAIL_HOST_USER = 'lapinf@ufn.edu.br'
+EMAIL_HOST_PASSWORD = 'Zab52387'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
