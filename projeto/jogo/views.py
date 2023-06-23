@@ -30,7 +30,7 @@ class JogoListView(LoginRequiredMixin, TreinadorRequiredMixin, ListView):
         return context
 
     def get_queryset(self):                
-        qs = super().get_queryset().all() #filter(chave__etapa__is_active=True)
+        qs = super().get_queryset().filter(etapa__is_active=True)
         
         if self.request.GET:
             #quando ja tem dados filtrando
@@ -44,17 +44,17 @@ class JogoListView(LoginRequiredMixin, TreinadorRequiredMixin, ListView):
             fase = form.cleaned_data.get('fase')
             atleta = form.cleaned_data.get('atleta')
 
-    #         if etapa:
-    #             qs = qs.filter(Q(chave__etapa=etapa))
+            if etapa:
+                qs = qs.filter(Q(chave__etapa=etapa))
             
-    #         if atleta:
-    #             qs = qs.filter(Q(timeA__dupla__atleta_direita__atleta__nome__icontains=atleta) | Q(timeA__dupla__atleta_direita__atleta__apelido__icontains=atleta)| 
-    #                            Q(timeA__dupla__atleta_esquerda__atleta__nome__icontains=atleta) | Q(timeA__dupla__atleta_esquerda__atleta__apelido__icontains=atleta)|
-    #                            Q(timeB__dupla__atleta_direita__atleta__nome__icontains=atleta) | Q(timeB__dupla__atleta_direita__atleta__apelido__icontains=atleta)| 
-    #                            Q(timeB__dupla__atleta_esquerda__atleta__nome__icontains=atleta) | Q(timeB__dupla__atleta_esquerda__atleta__apelido__icontains=atleta))
+            if atleta:
+                qs = qs.filter(Q(timeA__dupla__atleta_direita__atleta__nome__icontains=atleta) | Q(timeA__dupla__atleta_direita__atleta__apelido__icontains=atleta)|
+                               Q(timeA__dupla__atleta_esquerda__atleta__nome__icontains=atleta) | Q(timeA__dupla__atleta_esquerda__atleta__apelido__icontains=atleta)|
+                               Q(timeB__dupla__atleta_direita__atleta__nome__icontains=atleta) | Q(timeB__dupla__atleta_direita__atleta__apelido__icontains=atleta)|
+                               Q(timeB__dupla__atleta_esquerda__atleta__nome__icontains=atleta) | Q(timeB__dupla__atleta_esquerda__atleta__apelido__icontains=atleta))
 
-    #         if fase:
-    #             qs = qs.filter(Q(fase=fase))
+            if fase:
+                qs = qs.filter(Q(fase=fase))
             
         return qs
 

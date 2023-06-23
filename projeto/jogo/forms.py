@@ -7,13 +7,15 @@ from jogo.models import Jogo
 
 
 class JogoCreateForm(forms.ModelForm):
+    etapa = forms.ModelChoiceField(label='Etapa', queryset=Etapa.etapas_ativas.all())
     class Meta:
         model = Jogo
-        fields = ['fase', 'chave', 'timeA', 'timeB']
+        fields = ['etapa', 'fase', 'chave', 'timeA', 'timeB']
 
 class JogoUpdateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
-        super(JogoUpdateForm, self).__init__(*args, **kwargs)                      
+        super(JogoUpdateForm, self).__init__(*args, **kwargs)
+        self.fields['etapa'].disabled = True
         self.fields['fase'].disabled = True
         self.fields['chave'].disabled = True
         self.fields['timeA'].disabled = True
@@ -25,7 +27,7 @@ class JogoUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Jogo
-        fields = ['fase', 'chave', 'timeA', 'timeB', 'placar_timeA_set1', 'placar_timeB_set1', 'placar_timeA_set2', 'placar_timeB_set2', 'placar_timeA_set3', 'placar_timeB_set3', 'vencedor']
+        fields = ['etapa', 'fase', 'chave', 'timeA', 'timeB', 'placar_timeA_set1', 'placar_timeB_set1', 'placar_timeA_set2', 'placar_timeB_set2', 'placar_timeA_set3', 'placar_timeB_set3', 'vencedor']
     
 
 class BuscaJogoForm(forms.Form):    

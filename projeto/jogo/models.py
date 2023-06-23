@@ -21,6 +21,7 @@ class Jogo(models.Model):
     
     fase = models.CharField('Fase da etapa *', max_length=15, choices=FASE,  help_text='* Campos obrigatórios')
     chave = models.ForeignKey('chave.Chave', null=True, blank=True, on_delete=models.PROTECT)
+    etapa = models.ForeignKey('etapa.Etapa', null=True, blank=False, on_delete=models.PROTECT)
     timeA = models.ForeignKey('chave.ChaveDupla',  on_delete=models.PROTECT, related_name='timeA_chave_dupla')
     timeB = models.ForeignKey('chave.ChaveDupla', on_delete=models.PROTECT, related_name='timeB_chave_dupla')
 

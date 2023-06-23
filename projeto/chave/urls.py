@@ -1,6 +1,7 @@
 from django.conf.urls import url
 
-from .views import ProcessamentoChaveDetailView, ChaveListView, ChaveCreateView, ChaveDeleteView, ChaveDuplaListView, ChaveDuplaCreateView, ChaveDuplaDeleteView
+from .views import ProcessamentoChaveDetailView, ChaveListView, ChaveCreateView, ChaveDeleteView, \
+	ChaveDuplaListView, ChaveDuplaCreateView, ChaveDuplaDeleteView, BuscaDuplaChaveAjaxView
 
 
 urlpatterns = [
@@ -13,4 +14,6 @@ urlpatterns = [
 	url(r'(?P<pk>\d+)/delete/$', ChaveDeleteView.as_view(), name='chave_delete'), 
  
 	url(r'(?P<pk>\d+)/processamento-chaves-etapa/$', ProcessamentoChaveDetailView.as_view(), name='processamento_chaves_etapa'),
+
+	url(r'ajax/buscar-duplas-chave/$', BuscaDuplaChaveAjaxView.as_view(), name='ajax_busca_duplas_chave'),
 ]

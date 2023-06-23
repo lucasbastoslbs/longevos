@@ -1,9 +1,11 @@
 from __future__ import unicode_literals
 from django.contrib import messages
 from django.db.models import Q
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.shortcuts import redirect
 from django.urls import reverse
+from django.views import View
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
@@ -133,3 +135,34 @@ class ChaveDuplaDeleteView(LoginRequiredMixin, TreinadorRequiredMixin, DeleteVie
         except Exception as e:
             messages.error(request, 'Há dependências ligadas à essa Dupla na Chave, permissão negada!')
         return redirect(self.success_url)
+
+
+class BuscaDuplaChaveAjaxView(View):
+
+    @csrf_exempt
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+
+    def post(self, *args, **kwargs):
+        try:
+            chave_id = self.request.POST.get('chave_id')
+            etapa_id = self.request.POST.get('etapa_id')
+
+            duplas = ChaveDupla.objects.all()
+            if chave_id:
+                duplas = duplas.filter(chave__id=chave_id)
+            elif etapa_id:
+                duplas = duplas.filter(chave__etapa__id=etapa_id)
+            else:
+                duplas = ChaveDupla.objects.none()
+
+            lista_duplas = []
+            for dupla in duplas:
+                dado = {'id': dupla.id,
+                        'descricao': str(dupla)}
+                lista_duplas.append(dado)
+
+            return JsonResponse({'lista_duplas':lista_duplas}, status=200)
+        except Exception as e:
+            retorno = {'erro': 'Erro: %s' % str(e)}
+            return JsonResponse(retorno, safe=False, status=400)
